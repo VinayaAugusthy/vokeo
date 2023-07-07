@@ -22,10 +22,6 @@ class _OtpScreenState extends State<OtpScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Text(
-              //   'Enter OTP',
-              //   style: textBold,
-              // ),
               SizedBox(
                   width: size.width / 2,
                   height: size.width / 2,
