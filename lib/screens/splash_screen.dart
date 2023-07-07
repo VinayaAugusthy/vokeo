@@ -7,15 +7,15 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            Image.asset('assets/images/download.svg'),
-            const Text(
-              'VOKEO',
-              style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
-            )
-          ],
-        ),
+        // child: Column(
+        //   children: [
+        child: Image.asset('assets/images/logo.png'),
+        //     const Text(
+        //       'VOKEO',
+        //       style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+        //     )
+        //   ],
+        // ),
       ),
     );
   }
