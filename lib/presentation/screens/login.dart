@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
+import 'package:vokeo/presentation/screens/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +16,6 @@ TextEditingController passWordController = TextEditingController();
 class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Padding(
@@ -67,21 +67,29 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   kheight20,
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Do not have an account? ',
                         style: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
                         ),
                       ),
-                      Text(
-                        ' Signup',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.red,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (ctx) => const SignUp()),
+                          );
+                        },
+                        child: const Text(
+                          ' Signup',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.red,
+                          ),
                         ),
                       ),
                     ],
