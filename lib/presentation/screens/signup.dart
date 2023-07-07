@@ -26,6 +26,12 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(
+                  height: 250,
+                  child: Image.asset(
+                    'assets/images/signup.png',
+                  ),
+                ),
                 callTextField(
                     labelName: 'Username', controllerName: userNameController),
                 kheight30,

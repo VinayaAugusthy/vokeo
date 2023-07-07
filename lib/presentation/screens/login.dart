@@ -34,7 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 250,
                     child: Image.asset(
                       'assets/images/login.png',
-                      scale: 1,
                     ),
                   ),
                   callTextField(
