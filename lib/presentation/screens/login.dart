@@ -37,29 +37,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       scale: 1,
                     ),
                   ),
-                  callTextField('Username', userNameController),
+                  callTextField(
+                      labelName: 'Username',
+                      controllerName: userNameController),
                   kheight20,
-                  callTextField('Password', passWordController),
+                  callTextField(
+                      labelName: 'Password',
+                      controllerName: passWordController),
                   kheight20,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 60),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'LOGIN',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'LOGIN',
+                      style: textBold,
                     ),
                   ),
                   kheight20,
                   const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.transparent,
                         backgroundImage: AssetImage('assets/images/google.png'),
                       ),
+                      kWidth10,
                       CircleAvatar(
                         backgroundColor: Colors.transparent,
                         backgroundImage: AssetImage('assets/images/fb.png'),
