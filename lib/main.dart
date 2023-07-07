@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vokeo/screens/splash_screen.dart';
+import 'package:vokeo/presentation/screens/login.dart';
+import 'package:vokeo/presentation/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData.dark(),
-      home: const SplashScreen(),
+      home: const LoginScreen(),
     );
   }
 }
