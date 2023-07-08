@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vokeo/presentation/screens/home.dart';
 
 const kheight20 = SizedBox(
   height: 20,
@@ -10,3 +11,4 @@ const kWidth10 = SizedBox(
   width: 10,
 );
 const textBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
+List navItems = [HomeScreen()];
