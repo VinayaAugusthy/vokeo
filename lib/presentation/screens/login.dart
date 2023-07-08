@@ -52,6 +52,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   kheight20,
+                  const Text(
+                    'OR',
+                    style: textBold,
+                  ),
+                  kheight20,
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

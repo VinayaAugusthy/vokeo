@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-Widget callTextField(
-    {required String labelName,
-    required TextEditingController controllerName,
-    TextInputType? keys}) {
+Widget callTextField({
+  required String labelName,
+  required TextEditingController controllerName,
+  TextInputType? keys,
+}) {
   return TextFormField(
     keyboardType: keys,
     controller: controllerName,

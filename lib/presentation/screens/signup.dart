@@ -43,13 +43,34 @@ class _SignUpState extends State<SignUp> {
                     controllerName: confirmPassWordController),
                 kheight30,
                 ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (ctx) => OtpScreen()),
-                      );
-                    },
-                    child: Text('SIGNUP'))
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => const OtpScreen()),
+                    );
+                  },
+                  child: const Text('SIGNUP'),
+                ),
+                // kheight20,
+                // const Text(
+                //   'OR',
+                //   style: textBold,
+                // ),
+                // kheight20,
+                // const Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     CircleAvatar(
+                //       backgroundColor: Colors.transparent,
+                //       backgroundImage: AssetImage('assets/images/google.png'),
+                //     ),
+                //     kWidth10,
+                //     CircleAvatar(
+                //       backgroundColor: Colors.transparent,
+                //       backgroundImage: AssetImage('assets/images/fb.png'),
+                //     )
+                // ],
+                // ),
               ],
             ),
           ),
