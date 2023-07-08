@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:vokeo/presentation/screens/login.dart';
-import 'package:vokeo/presentation/screens/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,8 +19,9 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primarySwatch: Colors.red,
         buttonTheme: const ButtonThemeData(buttonColor: Colors.red),
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(color: Colors.black),
+        textTheme: TextTheme(
+          bodyLarge: TextStyle(
+              color: Colors.black, fontFamily: GoogleFonts.kalam().fontFamily),
         ),
       ),
       darkTheme: ThemeData.dark(),
