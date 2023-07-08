@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
