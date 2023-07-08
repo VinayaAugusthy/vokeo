@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/presentation/widget/search_field.dart';
 
-// ignore: must_be_immutable
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
   @override
@@ -16,6 +16,18 @@ class SearchScreen extends StatelessWidget {
           child: Column(
             children: [
               searchField(),
+              kheight30,
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: (context, index) {
+                    return const ListTile(
+                      leading: CircleAvatar(),
+                      title: Text('Username'),
+                    );
+                  },
+                  itemCount: 15,
+                ),
+              )
             ],
           ),
         ),
