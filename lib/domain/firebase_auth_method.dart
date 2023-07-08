@@ -18,4 +18,16 @@ class FireBaseAuthMethods {
       showSnackBar(context, e.message!);
     }
   }
+
+//email  verification
+  sendEmailVerification(
+    BuildContext context,
+  ) async {
+    try {
+      _auth.currentUser!.sendEmailVerification();
+      showSnackBar(context, 'Email verification semt!');
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!);
+    }
+  }
 }

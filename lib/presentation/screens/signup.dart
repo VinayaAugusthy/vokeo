@@ -53,26 +53,6 @@ class _SignUpState extends State<SignUp> {
                   },
                   child: const Text('SIGNUP'),
                 ),
-                // kheight20,
-                // const Text(
-                //   'OR',
-                //   style: textBold,
-                // ),
-                // kheight20,
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     CircleAvatar(
-                //       backgroundColor: Colors.transparent,
-                //       backgroundImage: AssetImage('assets/images/google.png'),
-                //     ),
-                //     kWidth10,
-                //     CircleAvatar(
-                //       backgroundColor: Colors.transparent,
-                //       backgroundImage: AssetImage('assets/images/fb.png'),
-                //     )
-                // ],
-                // ),
               ],
             ),
           ),
