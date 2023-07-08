@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:vokeo/presentation/widget/error_snackbar.dart';
 
 class FireBaseAuthMethods {
   final FirebaseAuth _auth;
@@ -13,6 +14,8 @@ class FireBaseAuthMethods {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-    } on FirebaseAuthException catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!);
+    }
   }
 }
