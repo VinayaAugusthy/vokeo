@@ -14,23 +14,29 @@ class _BaseScreenState extends State<BaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
+            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add_circle_outline),
+            label: 'Post',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notifications_none),
+            label: 'Notifications',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.circle),
-          )
+          BottomNavigationBarItem(icon: Icon(Icons.circle), label: 'Profile')
         ],
+        selectedItemColor: Colors.red,
+        unselectedItemColor: Colors.black,
+        currentIndex: _bottomIndex,
+        showSelectedLabels: false,
         onTap: (value) {
           setState(() {
             _bottomIndex = value;

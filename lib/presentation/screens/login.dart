@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
+import 'package:vokeo/presentation/screens/base_screen.dart';
 import 'package:vokeo/presentation/screens/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
@@ -45,7 +46,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       controllerName: passWordController),
                   kheight20,
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (ctx) => const BaseScreen()),
+                      );
+                    },
                     child: const Text(
                       'LOGIN',
                       style: textBold,
