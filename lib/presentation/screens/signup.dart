@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/presentation/screens/otp_screen.dart';
+import 'package:vokeo/domain/firebase_auth_method.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class SignUp extends StatefulWidget {
@@ -10,9 +11,9 @@ class SignUp extends StatefulWidget {
   State<SignUp> createState() => _SignUpState();
 }
 
-TextEditingController userNameController = TextEditingController();
+TextEditingController emailController = TextEditingController();
 TextEditingController passWordController = TextEditingController();
-TextEditingController confirmPassWordController = TextEditingController();
+// TextEditingController confirmPassWordController = TextEditingController();
 
 class _SignUpState extends State<SignUp> {
   @override
@@ -33,21 +34,22 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 callTextField(
-                    labelName: 'Username', controllerName: userNameController),
+                    labelName: 'Username', controllerName: emailController),
                 kheight30,
                 callTextField(
                     labelName: 'Password', controllerName: passWordController),
                 kheight30,
-                callTextField(
-                    labelName: 'Confirm Password',
-                    controllerName: confirmPassWordController),
+                // callTextField(
+                //     labelName: 'Confirm Password',
+                //     controllerName: confirmPassWordController),
                 kheight30,
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (ctx) => const OtpScreen()),
-                    );
+                    signUpUserFunction();
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (ctx) => const OtpScreen()),
+                    // );
                   },
                   child: const Text('SIGNUP'),
                 ),
@@ -76,6 +78,14 @@ class _SignUpState extends State<SignUp> {
           ),
         ),
       ),
+    );
+  }
+
+  signUpUserFunction() async {
+    FireBaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
+      email: emailController.text,
+      password: passWordController.text,
+      context: context,
     );
   }
 }
