@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
         buttonTheme: const ButtonThemeData(buttonColor: Colors.red),
         textTheme: TextTheme(
           bodyLarge: TextStyle(
+              color: Colors.red, fontFamily: GoogleFonts.kalam().fontFamily),
+          bodyMedium: TextStyle(
               color: Colors.black, fontFamily: GoogleFonts.kalam().fontFamily),
         ),
       ),
