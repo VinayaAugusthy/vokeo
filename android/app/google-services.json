@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "660454702638",
+    "project_id": "vokeo-4db4d",
+    "storage_bucket": "vokeo-4db4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:660454702638:android:b1d0c8f47a8ad2478429bf",
+        "android_client_info": {
+          "package_name": "com.example.vokeo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "660454702638-scm02aobsgln5p9k5faihl362rn3e2ti.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVlAzOvDD7dYYw8ILGRuxnX6gyFck5d_0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "660454702638-scm02aobsgln5p9k5faihl362rn3e2ti.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

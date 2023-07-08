@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
@@ -16,25 +18,42 @@ class _OtpScreenState extends State<OtpScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: size.width * 0.1),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                  width: size.width / 2,
-                  height: size.width / 2,
-                  child: Image.asset('assets/images/otp.png')),
-              callTextField(
-                  labelName: 'OTP',
-                  controllerName: otpController,
-                  keys: TextInputType.number),
-              kheight30,
-              ElevatedButton(
-                  onPressed: () {}, child: const Text('Validate OTP'))
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+                width: size.width / 2,
+                height: size.width / 2,
+                child: Image.asset('assets/images/otp.png')),
+            const Text(
+              'Enter OTP',
+              style: textBold,
+            ),
+            kheight20,
+            OTPTextField(
+              length: 6,
+              width: size.width,
+              fieldWidth: 40,
+              textFieldAlignment: MainAxisAlignment.spaceAround,
+              fieldStyle: FieldStyle.box,
+              outlineBorderRadius: 10,
+              onChanged: (value) {},
+            ),
+            // OTPTextField(
+            //   length: 5,
+            //   width: MediaQuery.of(context).size.width,
+            //   fieldWidth: 50,
+            //   style: TextStyle(fontSize: 17),
+            //   textFieldAlignment: MainAxisAlignment.spaceAround,
+            //   fieldStyle: FieldStyle.underline,
+            //   onCompleted: (pin) {
+            //     print("Completed: " + pin);
+            //   },
+            // ),
+            kheight30,
+            ElevatedButton(onPressed: () {}, child: const Text('Validate OTP'))
+          ],
         ),
       ),
     );
