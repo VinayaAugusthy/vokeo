@@ -3,7 +3,7 @@ import 'package:vokeo/presentation/screens/home/home.dart';
 import 'package:vokeo/presentation/screens/notifications.dart';
 import 'package:vokeo/presentation/screens/post_screen.dart';
 import 'package:vokeo/presentation/screens/profile_screen.dart';
-import 'package:vokeo/presentation/screens/searchScreen.dart';
+import 'package:vokeo/presentation/screens/search/searchScreen.dart';
 
 const kheight20 = SizedBox(
   height: 20,

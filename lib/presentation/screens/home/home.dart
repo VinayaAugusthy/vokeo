@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/presentation/screens/home/widgets/stories.dart';
+import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -26,22 +26,10 @@ class HomeScreen extends StatelessWidget {
                       icon: const Icon(Icons.messenger_outline_rounded))
                 ],
               ),
-              Row(
-                children: [
-                  CircleAvatar(
-                    radius: 32,
-                    backgroundColor: Colors.blueGrey,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 36, bottom: 10, left: 32),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.add_circle_outline_sharp),
-                        color: appColor,
-                      ),
-                    ),
-                  ),
-                ],
+              Expanded(
+                child: ListView(
+                  children: List.generate(8, (index) => postContainer()),
+                ),
               )
             ],
           ),
