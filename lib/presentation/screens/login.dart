@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
+import 'package:vokeo/domain/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/base_screen.dart';
 import 'package:vokeo/presentation/screens/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
@@ -90,6 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          loginUser();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (ctx) => const SignUp()),
@@ -111,6 +114,14 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  loginUser() {
+    FireBaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+      email: emailController.text,
+      password: passWordController.text,
+      context: context,
     );
   }
 }
