@@ -13,7 +13,10 @@ class FireBaseAuthMethods {
       required BuildContext context}) async {
     try {
       await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
+      await sendEmailVerification(context);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
