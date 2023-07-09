@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/domain/firebase_auth_method.dart';
+import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
+import 'package:vokeo/presentation/screens/login.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class SignUp extends StatefulWidget {
@@ -34,7 +35,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 callTextField(
-                    labelName: 'Username', controllerName: emailController),
+                    labelName: 'Email', controllerName: emailController),
                 kheight30,
                 callTextField(
                     labelName: 'Password', controllerName: passWordController),
@@ -46,10 +47,10 @@ class _SignUpState extends State<SignUp> {
                 ElevatedButton(
                   onPressed: () {
                     signUpUserFunction();
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (ctx) => const OtpScreen()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+                    );
                   },
                   child: const Text('SIGNUP'),
                 ),

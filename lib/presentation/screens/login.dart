@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/domain/firebase_auth_method.dart';
+import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/base_screen.dart';
 import 'package:vokeo/presentation/screens/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
