@@ -5,6 +5,7 @@ import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/base_screen.dart';
 import 'package:vokeo/presentation/screens/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
+import '../widget/error_snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -49,10 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   kheight20,
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (ctx) => const BaseScreen()),
-                      );
+                      validCheck();
                     },
                     child: const Text(
                       'LOGIN',
@@ -92,7 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          loginUser();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (ctx) => const SignUp()),
@@ -124,4 +121,34 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
     );
   }
+
+  validCheck() {
+    if (userNameController.text.isEmpty && passWordController.text.isEmpty) {
+      showSnackBar(context, 'The fields cannot be empty');
+    }
+    if (userNameController.text.isEmpty) {
+      showSnackBar(context, 'Username cannot be empty');
+    } else if (passWordController.text.isEmpty) {
+      showSnackBar(context, 'Password cannot be empty');
+    } else {
+      loginUser();
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (ctx) => const BaseScreen()),
+      );
+    }
+  }
+
+  // errorCheck() {
+  //   if ((userNameController.text.isNotEmpty &&
+  //           passWordController.text.isNotEmpty) ||
+  //       userNameController.text.isNotEmpty ||
+  //       passWordController.text.isNotEmpty) {
+  //     loginUser();
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (ctx) => const BaseScreen()),
+  //     );
+  //   }
+  // }
 }
