@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/base_screen.dart';
-import 'package:vokeo/presentation/screens/signup.dart';
+import 'package:vokeo/presentation/screens/authentication/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
-import '../widget/error_snackbar.dart';
+import '../../widget/error_snackbar.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

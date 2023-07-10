@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
-import 'package:vokeo/presentation/screens/login.dart';
+import 'package:vokeo/presentation/screens/authentication/login.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class SignUp extends StatefulWidget {
@@ -69,4 +69,21 @@ class _SignUpState extends State<SignUp> {
       context: context,
     );
   }
+
+  // validCheck() {
+  //   if (userNameController.text.isEmpty && passWordController.text.isEmpty) {
+  //     showSnackBar(context, 'The fields cannot be empty');
+  //   }
+  //   if (userNameController.text.isEmpty) {
+  //     showSnackBar(context, 'Username cannot be empty');
+  //   } else if (passWordController.text.isEmpty) {
+  //     showSnackBar(context, 'Password cannot be empty');
+  //   } else {
+  //     signUpUserFunction();
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+  //     );
+  //   }
+  // }
 }

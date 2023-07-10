@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:vokeo/presentation/screens/login.dart';
+import 'package:vokeo/presentation/screens/authentication/login.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 
