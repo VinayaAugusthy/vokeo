@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/presentation/widget/error_snackbar.dart';
 
+import '../../presentation/screens/base_screen.dart';
+
 class FireBaseAuthMethods {
   final FirebaseAuth _auth;
 
@@ -28,10 +30,17 @@ class FireBaseAuthMethods {
       required String password,
       required BuildContext context}) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      if (!_auth.currentUser!.emailVerified) {
-        await sendEmailVerification(context);
-      }
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (ctx) => const BaseScreen()),
+        );
+      });
+      // if (!_auth.currentUser!.emailVerified) {
+      //   await sendEmailVerification(context);
+      // }
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }

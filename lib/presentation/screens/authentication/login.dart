@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
-import 'package:vokeo/presentation/screens/base_screen.dart';
 import 'package:vokeo/presentation/screens/authentication/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 import '../../widget/error_snackbar.dart';
@@ -16,6 +15,7 @@ class LoginScreen extends StatefulWidget {
 
 TextEditingController userNameController = TextEditingController();
 TextEditingController passWordController = TextEditingController();
+final _formKey = GlobalKey<FormState>();
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
@@ -31,81 +31,109 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.symmetric(horizontal: screenWidth / 8),
           child: Center(
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 250,
-                    child: Image.asset(
-                      'assets/images/login.png',
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 250,
+                      child: Image.asset(
+                        'assets/images/login.png',
+                      ),
                     ),
-                  ),
-                  callTextField(
+                    callTextField(
                       labelName: 'Username',
-                      controllerName: userNameController),
-                  kheight20,
-                  callTextField(
+                      controllerName: userNameController,
+                      validation: (value) {
+                        if (emailController.text.isEmpty) {
+                          return 'Email is required';
+                        } else if (RegExp(
+                                r'^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$')
+                            .hasMatch(value!)) {
+                          return 'Please enter a valid email';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    kheight20,
+                    callTextField(
                       labelName: 'Password',
-                      controllerName: passWordController),
-                  kheight20,
-                  ElevatedButton(
-                    onPressed: () {
-                      validCheck();
-                    },
-                    child: const Text(
-                      'LOGIN',
+                      controllerName: passWordController,
+                      obscureText: true,
+                      validation: (value) {
+                        if (passWordController.text.isEmpty) {
+                          return 'Password is required';
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    kheight20,
+                    ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          loginUser();
+                        }
+                      },
+                      child: const Text(
+                        'LOGIN',
+                        style: textBold,
+                      ),
+                    ),
+                    kheight20,
+                    const Text(
+                      'OR',
                       style: textBold,
                     ),
-                  ),
-                  kheight20,
-                  const Text(
-                    'OR',
-                    style: textBold,
-                  ),
-                  kheight20,
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage('assets/images/google.png'),
-                      ),
-                      kWidth10,
-                      CircleAvatar(
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: AssetImage('assets/images/fb.png'),
-                      )
-                    ],
-                  ),
-                  kheight20,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Do not have an account? ',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
+                    kheight20,
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage:
+                              AssetImage('assets/images/google.png'),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (ctx) => const SignUp()),
-                          );
-                        },
-                        child: const Text(
-                          ' Signup',
+                        kWidth10,
+                        CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          backgroundImage: AssetImage('assets/images/fb.png'),
+                        )
+                      ],
+                    ),
+                    kheight20,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Do not have an account? ',
                           style: TextStyle(
                             fontSize: 18,
-                            color: Colors.red,
+                            color: Colors.black,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => const SignUp()),
+                            );
+                          },
+                          child: const Text(
+                            ' Signup',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -115,29 +143,37 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   loginUser() {
-    FireBaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
-      email: emailController.text,
-      password: passWordController.text,
-      context: context,
-    );
+    try {
+      FireBaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
+        email: emailController.text,
+        password: passWordController.text,
+        context: context,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        showSnackBar(context, 'No user found with this email');
+      } else if (e.code == 'wrong-password') {
+        showSnackBar(context, 'Password did not match');
+      }
+    }
   }
 
-  validCheck() {
-    if (userNameController.text.isEmpty && passWordController.text.isEmpty) {
-      showSnackBar(context, 'The fields cannot be empty');
-    }
-    if (userNameController.text.isEmpty) {
-      showSnackBar(context, 'Username cannot be empty');
-    } else if (passWordController.text.isEmpty) {
-      showSnackBar(context, 'Password cannot be empty');
-    } else {
-      loginUser();
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (ctx) => const BaseScreen()),
-      );
-    }
-  }
+  // validCheck() {
+  //   if (userNameController.text.isEmpty && passWordController.text.isEmpty) {
+  //     showSnackBar(context, 'The fields cannot be empty');
+  //   }
+  //   if (userNameController.text.isEmpty) {
+  //     showSnackBar(context, 'Username cannot be empty');
+  //   } else if (passWordController.text.isEmpty) {
+  //     showSnackBar(context, 'Password cannot be empty');
+  //   } else {
+  //     loginUser();
+  //     Navigator.push(
+  //       context,
+  //       MaterialPageRoute(builder: (ctx) => const BaseScreen()),
+  //     );
+  //   }
+  // }
 
   // errorCheck() {
   //   if ((userNameController.text.isNotEmpty &&

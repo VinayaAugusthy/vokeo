@@ -35,10 +35,29 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 callTextField(
-                    labelName: 'Email', controllerName: emailController),
+                  labelName: 'Email',
+                  controllerName: emailController,
+                  validation: (value) {
+                    if (emailController.text.isEmpty) {
+                      return 'Email is required';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
                 kheight30,
                 callTextField(
-                    labelName: 'Password', controllerName: passWordController),
+                  labelName: 'Password',
+                  controllerName: passWordController,
+                  obscureText: true,
+                  validation: (value) {
+                    if (passWordController.text.isEmpty) {
+                      return 'Password is required';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
                 kheight30,
                 // callTextField(
                 //     labelName: 'Confirm Password',

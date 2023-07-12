@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 
-Widget callTextField({
-  required String labelName,
-  required TextEditingController controllerName,
-  TextInputType? keys,
-}) {
+Widget callTextField(
+    {required String labelName,
+    required TextEditingController controllerName,
+    TextInputType? keys,
+    bool obscureText = false,
+    required String? validation(String? value)}) {
   return TextFormField(
     keyboardType: keys,
     controller: controllerName,
-    validator: (value) {
-      if (controllerName.text.isEmpty) {
-        return 'This field cannot be empty';
-      }
-      return null;
-    },
+    obscureText: obscureText,
+    validator: validation,
     decoration: InputDecoration(
       label: Text(labelName),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
