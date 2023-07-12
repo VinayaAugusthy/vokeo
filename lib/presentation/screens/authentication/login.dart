@@ -65,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       validation: (value) {
                         if (passWordController.text.isEmpty) {
                           return 'Password is required';
+                        } else if (emailController.text.length < 6) {
+                          return 'Password must be atleast 6 character long';
                         } else {
                           return null;
                         }
