@@ -87,6 +87,7 @@ class _SignUpState extends State<SignUp> {
       password: passWordController.text,
       context: context,
     );
+    //store data in     firestore
   }
 
   // validCheck() {

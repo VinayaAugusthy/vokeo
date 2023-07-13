@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vokeo/presentation/widget/error_snackbar.dart';
 
 import '../../presentation/screens/base_screen.dart';
@@ -53,6 +54,22 @@ class FireBaseAuthMethods {
     try {
       _auth.currentUser!.sendEmailVerification();
       showSnackBar(context, 'Email verification semt!');
+    } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!);
+    }
+  }
+
+  signInWithGoogle(BuildContext context) async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+      GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      // UserCredential userCredential =
+      //     await _auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
