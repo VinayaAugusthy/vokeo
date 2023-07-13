@@ -22,4 +22,3 @@ List navItems = [
   const Notifications(),
   const ProfileScreen()
 ];
-const appColor = Colors.red;
