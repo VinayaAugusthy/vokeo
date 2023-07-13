@@ -68,6 +68,10 @@ class FireBaseAuthMethods {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (ctx) => const BaseScreen()),
+      );
       // UserCredential userCredential =
       //     await _auth.signInWithCredential(credential);
     } on FirebaseAuthException catch (e) {

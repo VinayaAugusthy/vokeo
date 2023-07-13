@@ -34,6 +34,7 @@ dependencies:
   firebase_core: ^2.14.0
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^6.0.0
   flutter_instagram_stories: ^1.0.3+1
   google_fonts: ^4.0.5
   google_sign_in: ^6.1.4

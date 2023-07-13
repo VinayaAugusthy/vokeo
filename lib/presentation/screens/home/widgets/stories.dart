@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vokeo/core/constants/constants.dart';
+
+import '../../../../core/constants/colors.dart';
 
 storyCircle() {
   return const CircleAvatar(

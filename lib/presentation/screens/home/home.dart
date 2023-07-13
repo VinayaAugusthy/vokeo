@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
+
+import '../../../core/constants/colors.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

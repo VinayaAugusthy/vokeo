@@ -90,16 +90,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: textBold,
                     ),
                     kheight20,
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          backgroundImage:
-                              AssetImage('assets/images/google.png'),
+                        GestureDetector(
+                          child: const CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            backgroundImage:
+                                AssetImage('assets/images/google.png'),
+                          ),
+                          onTap: () {
+                            FireBaseAuthMethods(FirebaseAuth.instance)
+                                .signInWithGoogle(context);
+                          },
                         ),
                         kWidth10,
-                        CircleAvatar(
+                        const CircleAvatar(
                           backgroundColor: Colors.transparent,
                           backgroundImage: AssetImage('assets/images/fb.png'),
                         )
