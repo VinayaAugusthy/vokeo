@@ -10,8 +10,10 @@ class SearchScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(
-            size.width / 14,
+          padding: EdgeInsets.only(
+            left: size.width / 20,
+            top: size.width / 14,
+            right: size.width / 20,
           ),
           child: Column(
             children: [

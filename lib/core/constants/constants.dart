@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:vokeo/presentation/screens/home/home.dart';
 import 'package:vokeo/presentation/screens/notificcations/notifications.dart';
 import 'package:vokeo/presentation/screens/post_screen.dart';
-import 'package:vokeo/presentation/screens/profile_screen.dart';
+import 'package:vokeo/presentation/screens/profile/profile_screen.dart';
 import 'package:vokeo/presentation/screens/search/search_screen.dart';
 
 const kheight20 = SizedBox(
@@ -13,6 +13,9 @@ const kheight30 = SizedBox(
 );
 const kWidth10 = SizedBox(
   width: 10,
+);
+const kWidth30 = SizedBox(
+  width: 30,
 );
 const textBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
 List navItems = [
