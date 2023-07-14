@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/constants/constants.dart';
-import '../../widget/search_field.dart';
 
 class Notifications extends StatelessWidget {
   const Notifications({super.key});
