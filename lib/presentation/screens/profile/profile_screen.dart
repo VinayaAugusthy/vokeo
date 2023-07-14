@@ -151,6 +151,8 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 34,
+                      backgroundColor: Colors.transparent,
+                      backgroundImage: AssetImage('assets/images/dhoni.jpeg'),
                     ),
                     kWidth30,
                     Column(

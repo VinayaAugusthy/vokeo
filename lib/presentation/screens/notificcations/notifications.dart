@@ -28,7 +28,10 @@ class Notifications extends StatelessWidget {
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return const ListTile(
-                      leading: CircleAvatar(),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: AssetImage('assets/images/dhoni.jpeg'),
+                      ),
                       title: Text('_ann liked your post'),
                       trailing: Text('20m'),
                     );

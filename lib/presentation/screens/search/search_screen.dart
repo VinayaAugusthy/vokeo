@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/presentation/widget/search_field.dart';
+import 'package:vokeo/presentation/screens/search/widgets/search_field.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
@@ -23,7 +23,10 @@ class SearchScreen extends StatelessWidget {
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return const ListTile(
-                      leading: CircleAvatar(),
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: AssetImage('assets/images/dhoni.jpeg'),
+                      ),
                       title: Text('Username'),
                     );
                   },

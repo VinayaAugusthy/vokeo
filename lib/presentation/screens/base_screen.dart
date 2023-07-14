@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vokeo/core/constants/colors.dart';
 import 'package:vokeo/core/constants/constants.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _BaseScreenState extends State<BaseScreen> {
           ),
           BottomNavigationBarItem(icon: Icon(Icons.circle), label: 'Profile')
         ],
-        selectedItemColor: Colors.red,
+        selectedItemColor: appColor,
         unselectedItemColor: Colors.black,
         currentIndex: _bottomIndex,
         showSelectedLabels: false,
