@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
-import 'package:vokeo/presentation/screens/authentication/login.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class SignUp extends StatefulWidget {
@@ -14,7 +13,7 @@ class SignUp extends StatefulWidget {
 
 TextEditingController emailController = TextEditingController();
 TextEditingController passWordController = TextEditingController();
-// TextEditingController confirmPassWordController = TextEditingController();
+final _formKey = GlobalKey<FormState>();
 
 class _SignUpState extends State<SignUp> {
   @override
@@ -25,55 +24,59 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.symmetric(horizontal: size.width / 10),
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 250,
-                  child: Image.asset(
-                    'assets/images/signup.png',
+            child: Form(
+              key: _formKey,
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 250,
+                    child: Image.asset(
+                      'assets/images/signup.png',
+                    ),
                   ),
-                ),
-                callTextField(
-                  labelName: 'Email',
-                  controllerName: emailController,
-                  validation: (value) {
-                    if (emailController.text.isEmpty) {
-                      return 'Email is required';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                kheight30,
-                callTextField(
-                  labelName: 'Password',
-                  controllerName: passWordController,
-                  obscureText: true,
-                  validation: (value) {
-                    if (passWordController.text.isEmpty) {
-                      return 'Password is required';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                kheight30,
-                // callTextField(
-                //     labelName: 'Confirm Password',
-                //     controllerName: confirmPassWordController),
-                kheight30,
-                ElevatedButton(
-                  onPressed: () {
-                    signUpUserFunction();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (ctx) => const LoginScreen()),
-                    );
-                  },
-                  child: const Text('SIGNUP'),
-                ),
-              ],
+                  callTextField(
+                    labelName: 'Email',
+                    controllerName: emailController,
+                    validation: (value) {
+                      if (emailController.text.isEmpty) {
+                        return 'Email is required';
+                      } else if (RegExp(
+                              r'^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$')
+                          .hasMatch(value!)) {
+                        return 'Please enter a valid email';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  kheight30,
+                  callTextField(
+                    labelName: 'Password',
+                    controllerName: passWordController,
+                    obscureText: true,
+                    validation: (value) {
+                      if (passWordController.text.isEmpty) {
+                        return 'Password is required';
+                      } else if (emailController.text.length < 6) {
+                        return 'Password must be atleast 6 character long';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  kheight30,
+                  kheight30,
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        signUpUserFunction();
+                      }
+                    },
+                    child: const Text('SIGNUP'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -87,23 +90,5 @@ class _SignUpState extends State<SignUp> {
       password: passWordController.text,
       context: context,
     );
-    //store data in     firestore
   }
-
-  // validCheck() {
-  //   if (userNameController.text.isEmpty && passWordController.text.isEmpty) {
-  //     showSnackBar(context, 'The fields cannot be empty');
-  //   }
-  //   if (userNameController.text.isEmpty) {
-  //     showSnackBar(context, 'Username cannot be empty');
-  //   } else if (passWordController.text.isEmpty) {
-  //     showSnackBar(context, 'Password cannot be empty');
-  //   } else {
-  //     signUpUserFunction();
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (ctx) => const LoginScreen()),
-  //     );
-  //   }
-  // }
 }

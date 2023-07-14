@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vokeo/presentation/widget/error_snackbar.dart';
 
+import '../../presentation/screens/authentication/login.dart';
 import '../../presentation/screens/base_screen.dart';
 
 class FireBaseAuthMethods {
@@ -20,6 +21,10 @@ class FireBaseAuthMethods {
         password: password,
       );
       await sendEmailVerification(context);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+      );
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }

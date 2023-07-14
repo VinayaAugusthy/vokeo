@@ -43,8 +43,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     callTextField(
-                      labelName: 'Username',
-                      controllerName: userNameController,
+                      labelName: 'Email',
+                      controllerName: emailController,
                       validation: (value) {
                         if (emailController.text.isEmpty) {
                           return 'Email is required';

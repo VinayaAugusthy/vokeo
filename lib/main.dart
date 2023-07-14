@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vokeo/core/constants/colors.dart';
 import 'package:vokeo/presentation/screens/authentication/login.dart';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:vokeo/presentation/screens/base_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +34,16 @@ class MyApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData.dark(),
-      home: const LoginScreen(),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return const BaseScreen();
+          } else {
+            return const LoginScreen();
+          }
+        },
+      ),
     );
   }
 }
