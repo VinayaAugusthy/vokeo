@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vokeo/core/constants/colors.dart';
 import 'package:vokeo/presentation/screens/authentication/login.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -21,11 +22,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         brightness: Brightness.light,
-        primarySwatch: Colors.red,
-        buttonTheme: const ButtonThemeData(buttonColor: Colors.red),
+        primarySwatch: appColor,
+        buttonTheme: const ButtonThemeData(buttonColor: appColor),
         textTheme: TextTheme(
           bodyLarge: TextStyle(
-              color: Colors.red, fontFamily: GoogleFonts.kalam().fontFamily),
+              color: appColor, fontFamily: GoogleFonts.kalam().fontFamily),
           bodyMedium: TextStyle(
               color: Colors.black, fontFamily: GoogleFonts.kalam().fontFamily),
         ),
