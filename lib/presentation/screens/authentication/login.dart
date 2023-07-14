@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/domain/authentication/firebase_auth_method.dart';
+import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/authentication/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 import '../../widget/error_snackbar.dart';
@@ -48,9 +48,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       validation: (value) {
                         if (emailController.text.isEmpty) {
                           return 'Email is required';
-                        } else if (RegExp(
+                        } else if (!RegExp(
                                 r'^[\w-]+(?:\.[\w-]+)*@(?:[\w-]+\.)+[a-zA-Z]{2,7}$')
-                            .hasMatch(value!)) {
+                            .hasMatch(emailController.text)) {
                           return 'Please enter a valid email';
                         } else {
                           return null;
