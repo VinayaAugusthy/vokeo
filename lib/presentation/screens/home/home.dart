@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vokeo/presentation/screens/authentication/login.dart';
 import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
-
 import '../../../core/constants/colors.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -11,10 +10,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(15),
+          padding: EdgeInsets.only(
+            left: size.width / 20,
+            top: size.width / 14,
+            right: size.width / 20,
+          ),
           child: Column(
             children: [
               Row(
