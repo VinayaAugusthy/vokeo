@@ -20,7 +20,7 @@ const kWidth30 = SizedBox(
 const textBold = TextStyle(fontWeight: FontWeight.bold, fontSize: 20);
 List navItems = [
   const HomeScreen(),
-  SearchScreen(),
+  const SearchScreen(),
   const PostScreen(),
   const Notifications(),
   const ProfileScreen()
