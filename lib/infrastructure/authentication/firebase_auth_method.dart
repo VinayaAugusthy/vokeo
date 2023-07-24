@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vokeo/presentation/widget/error_snackbar.dart';
 import '../../presentation/screens/authentication/login.dart';
-import '../../presentation/screens/base_screen.dart';
+import '../../presentation/screens/base/base_screen.dart';
 
 class FireBaseAuthMethods {
   final FirebaseAuth _auth;

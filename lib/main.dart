@@ -5,7 +5,7 @@ import 'package:vokeo/core/constants/colors.dart';
 import 'package:vokeo/presentation/screens/authentication/login.dart';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:vokeo/presentation/screens/base_screen.dart';
+import 'package:vokeo/presentation/screens/base/base_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
