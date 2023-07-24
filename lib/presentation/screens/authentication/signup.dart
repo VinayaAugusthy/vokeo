@@ -1,21 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
-
-  @override
-  State<SignUp> createState() => _SignUpState();
-}
-
-TextEditingController emailController = TextEditingController();
-TextEditingController passWordController = TextEditingController();
-final _formKey = GlobalKey<FormState>();
-
-class _SignUpState extends State<SignUp> {
+class SignUp extends StatelessWidget {
+  SignUp({super.key});
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,7 +20,7 @@ class _SignUpState extends State<SignUp> {
         child: Center(
           child: SingleChildScrollView(
             child: Form(
-              key: _formKey,
+              key: formKey,
               child: Column(
                 // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,8 +64,8 @@ class _SignUpState extends State<SignUp> {
                   kheight30,
                   ElevatedButton(
                     onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        signUpUserFunction();
+                      if (formKey.currentState!.validate()) {
+                        signUpUserFunction(context);
                       }
                     },
                     child: const Text('SIGNUP'),
@@ -84,11 +79,11 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  signUpUserFunction() async {
-    FireBaseAuthMethods(FirebaseAuth.instance).signUpWithEmail(
-      email: emailController.text,
-      password: passWordController.text,
-      context: context,
-    );
+  signUpUserFunction(BuildContext context) async {
+    context.read<FireBaseAuthMethods>().signUpWithEmail(
+          email: emailController.text,
+          password: passWordController.text,
+          context: context,
+        );
   }
 }

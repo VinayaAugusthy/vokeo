@@ -1,23 +1,19 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/authentication/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 import '../../widget/error_snackbar.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-TextEditingController emailController = TextEditingController();
-TextEditingController passWordController = TextEditingController();
-final _formKey = GlobalKey<FormState>();
-
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passWordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -32,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Center(
             child: SingleChildScrollView(
               child: Form(
-                key: _formKey,
+                key: formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -75,8 +71,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     kheight20,
                     ElevatedButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          loginUser();
+                        if (formKey.currentState!.validate()) {
+                          loginUser(context);
                         }
                       },
                       child: const Text(
@@ -100,7 +96,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 AssetImage('assets/images/google.png'),
                           ),
                           onTap: () {
-                            FireBaseAuthMethods(FirebaseAuth.instance)
+                            context
+                                .read<FireBaseAuthMethods>()
                                 .signInWithGoogle(context);
                           },
                         ),
@@ -126,8 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                  builder: (ctx) => const SignUp()),
+                              MaterialPageRoute(builder: (ctx) => SignUp()),
                             );
                           },
                           child: const Text(
@@ -150,13 +146,13 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  loginUser() {
+  loginUser(BuildContext context) {
     try {
-      FireBaseAuthMethods(FirebaseAuth.instance).loginWithEmail(
-        email: emailController.text,
-        password: passWordController.text,
-        context: context,
-      );
+      context.read<FireBaseAuthMethods>().loginWithEmail(
+            email: emailController.text,
+            password: passWordController.text,
+            context: context,
+          );
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackBar(context, 'No user found with this email');
@@ -165,34 +161,4 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
-
-  // validCheck() {
-  //   if (userNameController.text.isEmpty && passWordController.text.isEmpty) {
-  //     showSnackBar(context, 'The fields cannot be empty');
-  //   }
-  //   if (userNameController.text.isEmpty) {
-  //     showSnackBar(context, 'Username cannot be empty');
-  //   } else if (passWordController.text.isEmpty) {
-  //     showSnackBar(context, 'Password cannot be empty');
-  //   } else {
-  //     loginUser();
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (ctx) => const BaseScreen()),
-  //     );
-  //   }
-  // }
-
-  // errorCheck() {
-  //   if ((userNameController.text.isNotEmpty &&
-  //           passWordController.text.isNotEmpty) ||
-  //       userNameController.text.isNotEmpty ||
-  //       passWordController.text.isNotEmpty) {
-  //     loginUser();
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(builder: (ctx) => const BaseScreen()),
-  //     );
-  //   }
-  // }
 }

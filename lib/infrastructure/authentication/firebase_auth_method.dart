@@ -26,7 +26,7 @@ class FireBaseAuthMethods {
           .then((value) {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (ctx) => const LoginScreen()),
+          MaterialPageRoute(builder: (ctx) => LoginScreen()),
         );
       });
       // ignore: use_build_context_synchronously
