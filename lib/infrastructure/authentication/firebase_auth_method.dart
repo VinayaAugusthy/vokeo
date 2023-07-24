@@ -9,6 +9,9 @@ class FireBaseAuthMethods {
   final FirebaseAuth _auth;
 
   FireBaseAuthMethods(this._auth);
+//State maintaince
+  Stream<User?> get authState => _auth.authStateChanges();
+
 //Email signup
   signUpWithEmail(
       {required String email,
