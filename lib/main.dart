@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/colors.dart';
+import 'package:vokeo/domain/profile/into_profile.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/authentication/login.dart';
 
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
         StreamProvider(
           create: (context) => context.read<FireBaseAuthMethods>().authState,
           initialData: null,
-        )
+        ),
+        Provider<DpSetterModel>(
+          create: (context) => DpSetterModel(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

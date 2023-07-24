@@ -1,10 +1,11 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
+import 'package:vokeo/domain/profile/into_profile.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class IntroProfile extends StatelessWidget {
@@ -28,31 +29,35 @@ class IntroProfile extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  Stack(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey[100],
-                        backgroundImage: imagepath == null
-                            ? const AssetImage('assets/images/dp.jpg')
-                                as ImageProvider
-                            : FileImage(File(imagepath!)),
-                        radius: 75,
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        right: 20,
-                        // left: 0,
-                        child: InkWell(
-                          child: const Icon(
-                            Icons.add_a_photo_sharp,
-                            size: 30,
+                  Consumer<DpSetterModel>(
+                    builder: (BuildContext context, dpSetter, Widget? child) {
+                      return Stack(
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: Colors.grey[100],
+                            backgroundImage: dpSetter.imagePath.isEmpty
+                                ? const AssetImage('assets/images/dp.jpg')
+                                    as ImageProvider
+                                : FileImage(File(dpSetter.imagePath)),
+                            radius: 75,
                           ),
-                          onTap: () {
-                            choosePic();
-                          },
-                        ),
-                      ),
-                    ],
+                          Positioned(
+                            bottom: 0,
+                            right: 20,
+                            // left: 0,
+                            child: InkWell(
+                              child: const Icon(
+                                Icons.add_a_photo_sharp,
+                                size: 30,
+                              ),
+                              onTap: () {
+                                choosePic(context);
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                   kheight30,
                   callTextField(
@@ -115,9 +120,11 @@ class IntroProfile extends StatelessWidget {
     );
   }
 
-  choosePic() async {
+  choosePic(BuildContext context) async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {}
+    if (pickedFile != null) {
+      context.read<DpSetterModel>().setImagePath(pickedFile.path);
+    }
   }
 }
