@@ -27,8 +27,9 @@ class MyApp extends StatelessWidget {
           create: (context) => FireBaseAuthMethods(FirebaseAuth.instance),
         ),
         StreamProvider(
-            create: (context) => context.read<FireBaseAuthMethods>().authState,
-            initialData: null)
+          create: (context) => context.read<FireBaseAuthMethods>().authState,
+          initialData: null,
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
