@@ -26,6 +26,7 @@ class FireBaseAuthMethods {
           MaterialPageRoute(builder: (ctx) => const LoginScreen()),
         );
       });
+      // ignore: use_build_context_synchronously
       await sendEmailVerification(context);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
@@ -44,7 +45,7 @@ class FireBaseAuthMethods {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => BaseScreen(),
+              builder: (context) => const BaseScreen(),
             ),
             (route) => false);
       });
@@ -77,11 +78,20 @@ class FireBaseAuthMethods {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+      // ignore: use_build_context_synchronously
       Navigator.push(
         context,
         MaterialPageRoute(builder: (ctx) => const BaseScreen()),
       );
     } on FirebaseAuthException catch (e) {
+      showSnackBar(context, e.message!);
+    }
+  }
+
+  signOut(BuildContext context) async {
+    try {
+      await _auth.signOut();
+    } on FirebaseException catch (e) {
       showSnackBar(context, e.message!);
     }
   }
