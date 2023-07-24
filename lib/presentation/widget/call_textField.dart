@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 Widget callTextField(
@@ -5,7 +7,7 @@ Widget callTextField(
     required TextEditingController controllerName,
     TextInputType? keys,
     bool obscureText = false,
-    required String? validation(String? value)}) {
+    required String? Function(String? value) validation}) {
   return TextFormField(
     keyboardType: keys,
     controller: controllerName,

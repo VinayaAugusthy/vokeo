@@ -1,8 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
 import '../../../core/constants/colors.dart';
 import '../../../infrastructure/authentication/firebase_auth_method.dart';
+import '../authentication/login.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,17 +33,19 @@ class HomeScreen extends StatelessWidget {
                       onPressed: () {},
                       icon: const Icon(Icons.messenger_outline_rounded)),
                   IconButton(
-                      onPressed: () {
+                      onPressed: () async {
                         // GoogleSignIn().disconnect();
-                        // await FirebaseAuth.instance.signOut().then((value) {
-                        //   Navigator.of(context).pushAndRemoveUntil(
-                        //       MaterialPageRoute(
-                        //         builder: (context) => const LoginScreen(),
-                        //       ),
-                        //       (route) => false);
-                        // });
-                        FireBaseAuthMethods(FirebaseAuth.instance)
-                            .signOut(context);
+                        await context
+                            .read<FireBaseAuthMethods>()
+                            .signOut(context)
+                            .then((value) {
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (context) => LoginScreen(),
+                              ),
+                              (route) => false);
+                        });
+                        // context.read<FireBaseAuthMethods>().signOut(context);
                       },
                       icon: const Icon(Icons.logout))
                 ],
