@@ -4,7 +4,7 @@ import 'package:vokeo/presentation/widget/error_snackbar.dart';
 
 class FireBaseProfileMethod {
   final CollectionReference profileCollection =
-      FirebaseFirestore.instance.collection('profiles');
+      FirebaseFirestore.instance.collection('users');
   saveProfileData(
       {required String fullName,
       required String username,
@@ -16,7 +16,7 @@ class FireBaseProfileMethod {
         'fullName': fullName,
         'username': username,
         'bio': bio,
-        'imagePath': imagePath
+        'profile pic': imagePath
       });
     } on FirebaseException catch (e) {
       showSnackBar(context!, e.message!);

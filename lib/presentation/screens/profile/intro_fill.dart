@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/domain/profile/into_profile.dart';
+import 'package:vokeo/infrastructure/profile/firebase_profile_method.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class IntroProfile extends StatelessWidget {
@@ -20,6 +21,16 @@ class IntroProfile extends StatelessWidget {
     TextEditingController bioController = TextEditingController();
     final formKey = GlobalKey<FormState>();
     double screenWidth = MediaQuery.of(context).size.width;
+    saveProfileData(BuildContext context) {
+      final dpSetter = context.read<DpSetterModel>();
+      final name = nameController.text;
+      final username = userNameController.text;
+      final bio = bioController.text;
+      final imagepath = dpSetter.imagePath;
+      context.read<FireBaseProfileMethod>().saveProfileData(
+          fullName: name, username: username, bio: bio, imagePath: imagepath);
+    }
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(screenWidth / 16),
@@ -103,7 +114,11 @@ class IntroProfile extends StatelessWidget {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            saveProfileData(context);
+                          }
+                        },
                         child: const Text(
                           'Save',
                           style: textBold,

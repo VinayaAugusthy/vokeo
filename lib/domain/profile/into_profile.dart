@@ -1,10 +1,20 @@
-import 'package:flutter/material.dart';
+class UserModel {
+  final String imagePath;
+  final String fullName;
+  final String userName;
+  final String? bio;
 
-class DpSetterModel extends ChangeNotifier {
-  String _imagePath = '';
-  String get imagePath => _imagePath;
-  void setImagePath(String path) {
-    _imagePath = path;
-    notifyListeners();
+  UserModel(
+      {required this.imagePath,
+      required this.fullName,
+      required this.userName,
+      this.bio});
+  toJson() {
+    return {
+      "fullName": fullName,
+      "username": userName,
+      "profile pic": imagePath,
+      "bio": bio,
+    };
   }
 }
