@@ -1,18 +1,26 @@
 // ignore_for_file: must_be_immutable, use_build_context_synchronously
-
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/domain/profile/into_profile.dart';
-import 'package:vokeo/infrastructure/profile/firebase_profile_method.dart';
+import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
+import 'package:vokeo/infrastructure/user/firebase_add_image.dart';
+import 'package:vokeo/infrastructure/user/firebase_add_users.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
-class IntroProfile extends StatelessWidget {
+class IntroProfile extends StatefulWidget {
   IntroProfile({super.key});
 
+  @override
+  State<IntroProfile> createState() => _IntroProfileState();
+}
+
+class _IntroProfileState extends State<IntroProfile> {
   String? imagepath;
+
+  String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +28,19 @@ class IntroProfile extends StatelessWidget {
     TextEditingController userNameController = TextEditingController();
     TextEditingController bioController = TextEditingController();
     final formKey = GlobalKey<FormState>();
+    final signedUser = context.read<FireBaseAuthMethods>().currentUser;
     double screenWidth = MediaQuery.of(context).size.width;
-    saveProfileData(BuildContext context) {
-      final dpSetter = context.read<DpSetterModel>();
-      final name = nameController.text;
-      final username = userNameController.text;
-      final bio = bioController.text;
-      final imagepath = dpSetter.imagePath;
-      context.read<FireBaseProfileMethod>().saveProfileData(
-          fullName: name, username: username, bio: bio, imagePath: imagepath);
-    }
+    // saveProfileData(BuildContext context) async {
+    //   final user = context.read<UserModel>();
+    //   // final dpSetter = context.read<ImageProviderModel>();
+    //   // final name = nameController.text;
+    //   // final username = userNameController.text;
+    //   UserModel(
+    //       imagePath: user.imagePath,
+    //       fullName: user.fullName,
+    //       userName: user.userName,
+    //       bio: user.bio);
+    // }
 
     return Scaffold(
       body: Padding(
@@ -40,35 +51,31 @@ class IntroProfile extends StatelessWidget {
               key: formKey,
               child: Column(
                 children: [
-                  Consumer<DpSetterModel>(
-                    builder: (BuildContext context, dpSetter, Widget? child) {
-                      return Stack(
-                        children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.grey[100],
-                            backgroundImage: dpSetter.imagePath.isEmpty
-                                ? const AssetImage('assets/images/dp.jpg')
-                                    as ImageProvider
-                                : FileImage(File(dpSetter.imagePath)),
-                            radius: 75,
+                  Stack(
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.grey[100],
+                        backgroundImage: imagepath == null
+                            ? const AssetImage('assets/images/dp.jpg')
+                                as ImageProvider
+                            : FileImage(File(imagepath!)),
+                        radius: 75,
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        right: 20,
+                        // left: 0,
+                        child: InkWell(
+                          child: const Icon(
+                            Icons.add_a_photo_sharp,
+                            size: 30,
                           ),
-                          Positioned(
-                            bottom: 0,
-                            right: 20,
-                            // left: 0,
-                            child: InkWell(
-                              child: const Icon(
-                                Icons.add_a_photo_sharp,
-                                size: 30,
-                              ),
-                              onTap: () {
-                                choosePic(context);
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                          onTap: () {
+                            choosePic(context);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                   kheight30,
                   callTextField(
@@ -116,7 +123,16 @@ class IntroProfile extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            saveProfileData(context);
+                            final user = UserModel(
+                                email: signedUser!.email!,
+                                imagePath: imageUrl != null ? imageUrl! : dp,
+                                fullName: nameController.text.trim(),
+                                userName: userNameController.text.trim(),
+                                bio: bioController.text.isNotEmpty
+                                    ? bioController.text.trim()
+                                    : '');
+                            // userController.createUser(user);
+                            saveUserData(user, context);
                           }
                         },
                         child: const Text(
@@ -139,7 +155,10 @@ class IntroProfile extends StatelessWidget {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      context.read<DpSetterModel>().setImagePath(pickedFile.path);
+      setState(() {
+        imagepath = pickedFile.path;
+      });
+      imageUrl = await addProfileImge(pickedFile);
     }
   }
 }

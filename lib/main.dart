@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:vokeo/appllication/user/user.dart';
 import 'package:vokeo/core/constants/colors.dart';
-import 'package:vokeo/domain/profile/into_profile.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
 import 'package:vokeo/presentation/screens/authentication/login.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:vokeo/presentation/screens/base/base_screen.dart';
 
@@ -31,9 +30,9 @@ class MyApp extends StatelessWidget {
           create: (context) => context.read<FireBaseAuthMethods>().authState,
           initialData: null,
         ),
-        Provider<DpSetterModel>(
-          create: (context) => DpSetterModel(),
-        ),
+        ChangeNotifierProvider(
+          create: (context) => UserController(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

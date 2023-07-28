@@ -25,3 +25,5 @@ List navItems = [
   const Notifications(),
   const ProfileScreen()
 ];
+const dp =
+    'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngitem.com%2Fmiddle%2Fmmhwxw_transparent-user-png-default-user-image-png-png%2F&psig=AOvVaw2EltcpUd5xCKpuekXdxwMn&ust=1690635330435000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPiDqce5sYADFQAAAAAdAAAAABAF';

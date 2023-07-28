@@ -9,6 +9,7 @@ class FireBaseAuthMethods {
   final FirebaseAuth _auth;
 
   FireBaseAuthMethods(this._auth);
+  User? get currentUser => _auth.currentUser;
 //State maintaince
   Stream<User?> get authState => _auth.authStateChanges();
 
@@ -24,9 +25,11 @@ class FireBaseAuthMethods {
         password: password,
       )
           .then((value) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (ctx) => IntroProfile()),
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => IntroProfile(),
+          ),
+          (route) => false,
         );
       });
       // ignore: use_build_context_synchronously
