@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:vokeo/appllication/profile/profile_data.dart';
 import 'package:vokeo/appllication/user/user.dart';
 import 'package:vokeo/core/constants/colors.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => UserController(),
+        ),
+        ChangeNotifierProvider<UserProvider>(
+          create: (context) => UserProvider(),
         )
       ],
       child: MaterialApp(

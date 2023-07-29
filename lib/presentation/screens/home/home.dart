@@ -1,63 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
-import '../../../core/constants/colors.dart';
-import '../../../infrastructure/authentication/firebase_auth_method.dart';
-import '../authentication/login.dart';
+
+import '../../../appllication/profile/profile_data.dart';
+import '../../../domain/post/post_model.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final userProvider = context.read<UserProvider>();
+
+    Size size = MediaQuery.sizeOf(context);
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(
-            left: size.width / 20,
-            top: size.width / 14,
-            right: size.width / 20,
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Padding(
+            padding: EdgeInsets.only(left: 13),
+            child: Text(
+              'VOKEO',
+              style: textBold,
+            )),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.messenger_outline_rounded),
           ),
-          child: Column(
-            children: [
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'VOKEO',
-                    style: TextStyle(fontSize: 24, color: appColor),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.messenger_outline_rounded)),
-                  IconButton(
-                      onPressed: () async {
-                        // GoogleSignIn().disconnect();
-                        await context
-                            .read<FireBaseAuthMethods>()
-                            .signOut(context)
-                            .then((value) {
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
-                              ),
-                              (route) => false);
-                        });
-                        // context.read<FireBaseAuthMethods>().signOut(context);
-                      },
-                      icon: const Icon(Icons.logout))
-                ],
-              ),
-              Expanded(
-                child: ListView(
-                  children: List.generate(8, (index) => postContainer()),
-                ),
-              )
-            ],
-          ),
-        ),
+        ],
+      ),
+      body: FutureBuilder<List<PostModel>>(
+        future: userProvider.fetchPostsFromFirebase(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text(snapshot.error.toString()),
+            );
+          } else {
+            List<PostModel>? posts = snapshot.data;
+
+            return ListView.builder(
+              // scrollDirection: Axis.horizontal,
+              itemCount: posts!.length,
+              itemBuilder: (context, index) =>
+                  postCard(size, posts[index], context),
+            );
+          }
+        },
       ),
     );
   }
