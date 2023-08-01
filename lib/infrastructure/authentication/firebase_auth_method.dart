@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:vokeo/presentation/screens/profile/intro_fill.dart';
 import 'package:vokeo/presentation/widget/error_snackbar.dart';
+import '../../presentation/screens/authentication/login.dart';
 import '../../presentation/screens/base/base_screen.dart';
 
 class FireBaseAuthMethods {
@@ -85,10 +87,11 @@ class FireBaseAuthMethods {
         idToken: googleAuth?.idToken,
       );
       // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (ctx) => const BaseScreen()),
-      );
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => const BaseScreen(),
+          ),
+          (route) => false);
     } on FirebaseAuthException catch (e) {
       showSnackBar(context, e.message!);
     }
@@ -100,5 +103,15 @@ class FireBaseAuthMethods {
     } on FirebaseException catch (e) {
       showSnackBar(context, e.message!);
     }
+  }
+
+  logout(BuildContext context) async {
+    await context.read<FireBaseAuthMethods>().signOut(context).then((value) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => LoginScreen(),
+          ),
+          (route) => false);
+    });
   }
 }

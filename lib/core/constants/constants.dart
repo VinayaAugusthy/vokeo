@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:vokeo/presentation/screens/home/home.dart';
 import 'package:vokeo/presentation/screens/notificcations/notifications.dart';
-import 'package:vokeo/presentation/screens/post_screen.dart';
 import 'package:vokeo/presentation/screens/profile/profile_screen.dart';
 import 'package:vokeo/presentation/screens/search/search_screen.dart';
+
+import '../../presentation/screens/post_screen.dart';
 
 const kheight20 = SizedBox(
   height: 20,

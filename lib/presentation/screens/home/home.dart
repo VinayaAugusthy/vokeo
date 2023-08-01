@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
-
 import '../../../appllication/profile/profile_data.dart';
 import '../../../domain/post/post_model.dart';
+import '../../../infrastructure/authentication/firebase_auth_method.dart';
+import '../authentication/login.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,16 +19,31 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: false,
         title: const Padding(
-            padding: EdgeInsets.only(left: 13),
-            child: Text(
-              'VOKEO',
-              style: textBold,
-            )),
+          padding: EdgeInsets.only(left: 13),
+          child: Text(
+            'VOKEO',
+            style: textBold,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {},
             icon: const Icon(Icons.messenger_outline_rounded),
           ),
+          IconButton(
+            onPressed: () async {
+              await context.read<FireBaseAuthMethods>().signOut(context).then(
+                (value) {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ),
+                      (route) => false);
+                },
+              );
+            },
+            icon: const Icon(Icons.logout),
+          )
         ],
       ),
       body: FutureBuilder<List<PostModel>>(
