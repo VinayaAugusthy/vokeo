@@ -8,10 +8,11 @@ import 'package:vokeo/domain/profile/into_profile.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
 import 'package:vokeo/infrastructure/user/firebase_add_image.dart';
 import 'package:vokeo/infrastructure/user/firebase_add_users.dart';
+import 'package:vokeo/presentation/screens/authentication/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 
 class IntroProfile extends StatefulWidget {
-  IntroProfile({super.key});
+  const IntroProfile({super.key});
 
   @override
   State<IntroProfile> createState() => _IntroProfileState();
@@ -114,7 +115,14 @@ class _IntroProfileState extends State<IntroProfile> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                              builder: (context) => SignUp(),
+                            ),
+                            (route) => false,
+                          );
+                        },
                         child: const Text(
                           'Cancel',
                           style: textBold,

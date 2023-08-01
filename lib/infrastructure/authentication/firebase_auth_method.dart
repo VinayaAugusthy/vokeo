@@ -29,7 +29,7 @@ class FireBaseAuthMethods {
           .then((value) {
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => IntroProfile(),
+            builder: (context) => const IntroProfile(),
           ),
           (route) => false,
         );
@@ -106,12 +106,14 @@ class FireBaseAuthMethods {
   }
 
   logout(BuildContext context) async {
-    await context.read<FireBaseAuthMethods>().signOut(context).then((value) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-            builder: (context) => LoginScreen(),
-          ),
-          (route) => false);
-    });
+    await context.read<FireBaseAuthMethods>().signOut(context).then(
+      (value) {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => LoginScreen(),
+            ),
+            (route) => false);
+      },
+    );
   }
 }

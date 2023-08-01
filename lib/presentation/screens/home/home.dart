@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
 import 'package:vokeo/presentation/screens/home/widgets/post_container.dart';
+import 'package:vokeo/presentation/widget/loading.dart';
 import '../../../appllication/profile/profile_data.dart';
 import '../../../domain/post/post_model.dart';
 import '../../../infrastructure/authentication/firebase_auth_method.dart';
@@ -50,9 +51,7 @@ class HomeScreen extends StatelessWidget {
         future: userProvider.fetchPostsFromFirebase(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return circularProgress();
           } else if (snapshot.hasError) {
             return Center(
               child: Text(snapshot.error.toString()),
