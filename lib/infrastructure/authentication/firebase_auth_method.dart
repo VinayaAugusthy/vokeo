@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +11,7 @@ import '../../presentation/screens/base/base_screen.dart';
 
 class FireBaseAuthMethods {
   final FirebaseAuth _auth;
-
+  final userRef = FirebaseFirestore.instance.collection('users');
   FireBaseAuthMethods(this._auth);
   User? get currentUser => _auth.currentUser;
 //State maintaince
@@ -86,6 +88,12 @@ class FireBaseAuthMethods {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
+      // final GoogleSignInAccount user = GoogleSignIn().currentUser!;
+      // final DocumentSnapshot doc = await userRef.doc(user.id).get();
+      // if (!doc.exists) {
+      //   userRef.doc(user.id).set({"id": user.id, "username": });
+      // }
+      // final DocumentSnapshot doc = await.user;
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
