@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../domain/post/post_model.dart';
-import '../../domain/profile/into_profile.dart';
+import '../../domain/user/user_model.dart';
 
 class UserProvider extends ChangeNotifier {
   UserModel? _currentUser;

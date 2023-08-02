@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/core/constants/constants.dart';
-import 'package:vokeo/domain/profile/into_profile.dart';
+import 'package:vokeo/domain/user/user_model.dart';
 import 'package:vokeo/infrastructure/authentication/firebase_auth_method.dart';
-import 'package:vokeo/infrastructure/user/firebase_add_image.dart';
-import 'package:vokeo/infrastructure/user/firebase_add_users.dart';
+import 'package:vokeo/infrastructure/authentication/firebase_add_image.dart';
+import 'package:vokeo/infrastructure/authentication/firebase_add_users.dart';
 import 'package:vokeo/presentation/screens/authentication/signup.dart';
 import 'package:vokeo/presentation/widget/call_textField.dart';
 

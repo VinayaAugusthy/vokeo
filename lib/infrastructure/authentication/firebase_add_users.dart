@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:vokeo/presentation/screens/base/base_screen.dart';
 
 import '../../appllication/user/user.dart';
-import '../../domain/profile/into_profile.dart';
+import '../../domain/user/user_model.dart';
 
 saveUserData(UserModel user, BuildContext context) async {
   // Access the UserController using Provider.of or context.watch
