@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore, avoid_print
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -32,7 +34,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     usernameController.text = widget.snap['username'];
@@ -42,7 +43,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
 
     bioController.dispose();

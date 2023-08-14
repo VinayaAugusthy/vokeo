@@ -22,14 +22,13 @@ class _AddPostScreenState extends State<AddPostScreen> {
   bool _isLoading = false;
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _descriptionController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser as User;
+    final User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Center(
             child: IconButton(

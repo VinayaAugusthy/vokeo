@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element, prefer_typing_uninitialized_variables, duplicate_ignore
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +37,12 @@ class _PostCardState extends State<PostCard> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _textFieldController.dispose();
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getProfileDetails();
     getComments();

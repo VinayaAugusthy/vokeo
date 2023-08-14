@@ -24,14 +24,13 @@ class _EditPostScreenState extends State<EditPostScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _descriptionController.text = widget.snap['description'];
   }
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser as User;
+    final User user = Provider.of<UserProvider>(context).getUser;
 
     return Scaffold(
       appBar: AppBar(

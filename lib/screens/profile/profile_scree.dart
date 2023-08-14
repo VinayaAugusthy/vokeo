@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
+
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,7 +43,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late DocumentSnapshot<Map<String, dynamic>> userSnapshot;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
     getFollowers();

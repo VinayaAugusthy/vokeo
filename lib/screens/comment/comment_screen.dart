@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,14 +22,13 @@ class _CommentScreenState extends State<CommentScreen> {
   final TextEditingController _commentController = TextEditingController();
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _commentController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context).getUser as User;
+    User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,

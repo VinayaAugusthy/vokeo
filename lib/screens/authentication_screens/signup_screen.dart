@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -5,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:vokeo/screens/authentication_screens/signin_screen.dart';
 
 import '../../resourses/auth_methods.dart';
-import '../../utils/gradiant.dart';
 import '../../utils/spacing.dart';
 import '../../utils/utils.dart';
 import '../widgets/text_field.dart';
@@ -34,7 +35,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     emailController.dispose();
     passwordController.dispose();

@@ -27,7 +27,6 @@ class _LikeAnimationState extends State<LikeAnimation>
   @override
   void initState() {
     super.initState();
-    // TODO: implement initState
 
     _animationController = AnimationController(
       vsync: this,
@@ -38,7 +37,6 @@ class _LikeAnimationState extends State<LikeAnimation>
 
   @override
   void didUpdateWidget(covariant LikeAnimation oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
 
     if (widget.isAnimating != oldWidget.isAnimating) {
@@ -48,7 +46,6 @@ class _LikeAnimationState extends State<LikeAnimation>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _animationController.dispose();
   }
