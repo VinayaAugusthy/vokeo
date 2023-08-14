@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:vokeo/screens/search/view_post.dart';
 
 import '../profile/profile_scree.dart';
 
@@ -27,13 +25,13 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color.fromARGB(255, 167, 128, 128),
         automaticallyImplyLeading: false,
         title: TextFormField(
           style: const TextStyle(color: Colors.white),
           controller: _searchController,
           decoration: const InputDecoration(
-            labelText: "Search", // Changed label to labelText
+            label: Text("Search"),
           ),
           onFieldSubmitted: (String value) {
             setState(() {
@@ -111,25 +109,14 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Text("No posts available."),
                   );
                 }
-
-                return StaggeredGridView.countBuilder(
-                  itemCount: snapshot.data!.docs.length,
-                  crossAxisCount: 3,
-                  itemBuilder: (context, index) {
-                    var postData = snapshot.data!.docs[index].data();
-                    return GestureDetector(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              ViewPost(postUrl: postData['postUrl']))),
-                      child: Image.network(postData['postUrl']),
-                    );
-                  },
-                  staggeredTileBuilder: (index) => StaggeredTile.count(
-                    index % 7 == 0 ? 2 : 1,
-                    index % 7 == 0 ? 2 : 1,
+                return const Center(
+                  child: Text(
+                    'Search...',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 50,
+                    ),
                   ),
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
                 );
               },
             ),

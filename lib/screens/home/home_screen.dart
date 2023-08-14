@@ -37,7 +37,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           'VOKEO',
           style: TextStyle(
-              fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+              fontSize: 40,
+              fontWeight: FontWeight.bold,
+              color: Color.fromARGB(255, 167, 128, 128)),
         ),
         actions: [
           IconButton(
@@ -79,18 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getUsername() async {
-    // DocumentSnapshot snap = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .get();
-
-    // setState(() {
-    //   username = (snap.data() as Map<String, dynamic>)['username'];
-    // });
-
-    // print(
-    //   snap.data(),
-    // );
     try {
       DocumentSnapshot snap = await FirebaseFirestore.instance
           .collection('users')

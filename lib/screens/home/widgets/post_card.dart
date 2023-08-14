@@ -88,7 +88,7 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvider>(context).getUser;
-
+    Size size = MediaQuery.sizeOf(context);
     return Container(
       color: Colors.black,
       padding: const EdgeInsets.symmetric(
@@ -158,7 +158,7 @@ class _PostCardState extends State<PostCard> {
                         itemBuilder: (BuildContext context) {
                           return [
                             const PopupMenuItem(
-                              value: 0, //---add this line
+                              value: 0,
                               child: Text('Edit'),
                             ),
                             const PopupMenuItem(
@@ -179,7 +179,6 @@ class _PostCardState extends State<PostCard> {
                                 ),
                               )
                             ])
-                //====================Edit deletepost===========================================
               ],
             ),
           ),
@@ -197,12 +196,15 @@ class _PostCardState extends State<PostCard> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  width: double.infinity,
-                  child: Image(
-                    image: NetworkImage(widget.snap['postUrl']),
-                    fit: BoxFit.cover,
+                Padding(
+                  padding: EdgeInsets.all(size.width * 0.03),
+                  child: SizedBox(
+                    height: size.height * 0.35,
+                    width: double.infinity,
+                    child: Image(
+                      image: NetworkImage(widget.snap['postUrl']),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
                 AnimatedOpacity(
@@ -226,65 +228,68 @@ class _PostCardState extends State<PostCard> {
               ],
             ),
           ),
-          Row(
-            children: [
-              LikeAnimation(
-                isAnimating: widget.snap['likes'].contains(user.uid),
-                smallLike: true,
-                child: IconButton(
-                    onPressed: () async {
-                      await FirestoreMethods().likePost(
-                        user.uid,
-                        widget.snap['postId'],
-                        widget.snap['likes'],
-                      );
-                    },
-                    icon: widget.snap['likes'].contains(user.uid)
-                        ? const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          )
-                        : const Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                          )),
-              ),
-              IconButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => CommentScreen(snap: widget.snap),
-                  ),
-                ),
-                icon: const Icon(
-                  Icons.comment_outlined,
-                  color: Colors.white,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.send,
-                  color: Colors.white,
-                ),
-              ),
-              Expanded(
-                child: Align(
-                  alignment: Alignment.bottomRight,
+          Padding(
+            padding: EdgeInsets.only(
+                left: size.width * 0.04, right: size.width * 0.03),
+            child: Row(
+              children: [
+                LikeAnimation(
+                  isAnimating: widget.snap['likes'].contains(user.uid),
+                  smallLike: true,
                   child: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.bookmark,
-                      color: Colors.white,
+                      onPressed: () async {
+                        await FirestoreMethods().likePost(
+                          user.uid,
+                          widget.snap['postId'],
+                          widget.snap['likes'],
+                        );
+                      },
+                      icon: widget.snap['likes'].contains(user.uid)
+                          ? const Icon(
+                              Icons.favorite,
+                              color: Colors.red,
+                            )
+                          : const Icon(
+                              Icons.favorite_border,
+                              color: Colors.white,
+                            )),
+                ),
+                IconButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CommentScreen(snap: widget.snap),
                     ),
                   ),
+                  icon: const Icon(
+                    Icons.comment_outlined,
+                    color: Colors.white,
+                  ),
                 ),
-              )
-            ],
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.send,
+                    color: Colors.white,
+                  ),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.bookmark,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
-            ),
+            padding: EdgeInsets.symmetric(
+                vertical: 10, horizontal: size.width * 0.04),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,

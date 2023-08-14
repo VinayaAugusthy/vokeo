@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vokeo/screens/notifications/notifications.dart';
 
 import '../../controller/bottom_nav_controller.dart';
 import '../add_post/add_post_screen.dart';
@@ -24,6 +25,7 @@ class BottomNavScreen extends StatelessWidget {
       const HomeScreen(),
       const SearchScreen(),
       const AddPostScreen(),
+      const Notifications(),
       ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
     ];
     return Scaffold(
@@ -31,7 +33,7 @@ class BottomNavScreen extends StatelessWidget {
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           unselectedItemColor: Colors.white,
-          selectedItemColor: Colors.red,
+          selectedItemColor: const Color.fromARGB(255, 167, 128, 128),
           iconSize: 30,
           type: BottomNavigationBarType.fixed,
           onTap: (value) {
@@ -46,10 +48,10 @@ class BottomNavScreen extends StatelessWidget {
               label: '',
               icon: Icon(Icons.add_box_outlined),
             ),
-            // BottomNavigationBarItem(
-            //   label: '',
-            //   icon: Icon(Icons.notifications_none),
-            // ),
+            BottomNavigationBarItem(
+              label: '',
+              icon: Icon(Icons.notifications_none),
+            ),
             BottomNavigationBarItem(
               label: '',
               icon: Icon(Icons.person_outlined),
