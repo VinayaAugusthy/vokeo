@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/user.dart';
+import '../../models/user.dart' as model;
 import '../../providers/user_provider.dart';
 import '../../resourses/firestore_methods.dart';
 import '../widgets/comment_card.dart';
@@ -28,7 +29,7 @@ class _CommentScreenState extends State<CommentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<UserProvider>(context).getUser;
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -112,8 +113,19 @@ class _CommentScreenState extends State<CommentScreen> {
                     user.username,
                     user.photoUrl,
                   );
+                  if (widget.snap['uid'] !=
+                      FirebaseAuth.instance.currentUser!.uid) {
+                    await FirestoreMethods().showNotifications(
+                        postId: widget.snap['postId'],
+                        text: "commented",
+                        uid: FirebaseAuth.instance.currentUser!.uid,
+                        name: user.username,
+                        profilePic: user.photoUrl,
+                        owner: widget.snap['uid'],
+                        postUrl: widget.snap['postUrl']);
+                  }
                   setState(() {
-                    _commentController.text = "";
+                    _commentController.clear();
                   });
                 },
                 child: Container(
