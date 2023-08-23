@@ -159,4 +159,58 @@ class FirestoreMethods {
 
     return res;
   }
+
+  Future<void> showNotifications({
+    required String postId,
+    required String text,
+    required String uid,
+    required String name,
+    required String profilePic,
+    required String owner,
+    required String postUrl,
+  }) async {
+    print(uid);
+    print(owner);
+    print('reached here');
+    try {
+      var id = [owner, postId];
+      if (text.isNotEmpty) {
+        if (text == "commented") {
+          id.sort();
+          id.add('comment');
+        } else if (text == "liked") {
+          id.sort();
+          id.add('liked');
+        } else {
+          id.sort();
+          id.add('followed');
+        }
+
+        String notificationId = id.join("_");
+
+        await _firebaseFirestore
+            .collection('users')
+            .doc(owner)
+            .collection('notifications')
+            .doc(notificationId)
+            .set({
+          'profilePic': profilePic,
+          'postId': postId,
+          'text': text,
+          'notoficationId': notificationId,
+          'name': name,
+          'commentedBy': uid,
+          'datePublished': DateTime.now(),
+          'owner': owner,
+          'postUrl': postUrl
+        });
+      } else {
+        print('Empty comment');
+      }
+    } catch (e) {
+      print(
+        e.toString(),
+      );
+    }
+  }
 }
