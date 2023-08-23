@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element, prefer_typing_uninitialized_variables, duplicate_ignore
+// ignore_for_file: prefer_typing_uninitialized_variables, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,6 +12,7 @@ import '../../../utils/utils.dart';
 import '../../comment/comment_screen.dart';
 import '../../edit_post/edit_post_screen.dart';
 import '../../profile/profile_scree.dart';
+import '../../search/view_post.dart';
 import '../../widgets/like_animation.dart';
 
 class PostCard extends StatefulWidget {
@@ -33,7 +34,11 @@ class _PostCardState extends State<PostCard> {
 
   String username = "";
 
+  late DocumentSnapshot postSnap;
+
   late DocumentReference profileDetails;
+
+  //late DocumentSnapshot currentUserSnapshot;
 
   @override
   void dispose() {
@@ -44,8 +49,24 @@ class _PostCardState extends State<PostCard> {
   @override
   void initState() {
     super.initState();
+    // getCurrentUser();
+    getPostDetails();
     getProfileDetails();
     getComments();
+  }
+
+  void getPostDetails() async {
+    try {
+      postSnap = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.snap['postId'])
+          .get();
+    } catch (er) {
+      showSnackbar(
+        context,
+        er.toString(),
+      );
+    }
   }
 
   void getComments() async {
@@ -55,7 +76,15 @@ class _PostCardState extends State<PostCard> {
           .doc(widget.snap['postId'])
           .collection('comments')
           .get();
-      commentCount = snap.docs.length;
+
+      postSnap = await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(widget.snap['postId'])
+          .get();
+
+      setState(() {
+        commentCount = snap.docs.length;
+      });
     } catch (er) {
       showSnackbar(
         context,
@@ -88,7 +117,7 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvider>(context).getUser;
-    Size size = MediaQuery.sizeOf(context);
+
     return Container(
       color: Colors.black,
       padding: const EdgeInsets.symmetric(
@@ -136,6 +165,7 @@ class _PostCardState extends State<PostCard> {
                 //====================Edit deletepost===========================================
                 widget.snap['uid'] == FirebaseAuth.instance.currentUser!.uid
                     ? PopupMenuButton(
+                        color: Colors.black,
                         icon: const Icon(
                           Icons.more_vert,
                           color: Colors.white,
@@ -158,27 +188,38 @@ class _PostCardState extends State<PostCard> {
                         itemBuilder: (BuildContext context) {
                           return [
                             const PopupMenuItem(
-                              value: 0,
-                              child: Text('Edit'),
+                              value: 0, //---add this line
+                              child: Text('Edit',
+                                  style: TextStyle(color: Colors.white)),
                             ),
                             const PopupMenuItem(
                               value: 1,
-                              child: Text('Delete'),
+                              child: Text('Delete',
+                                  style: TextStyle(color: Colors.white)),
                             ),
                           ];
                         })
                     : PopupMenuButton(
-                        icon: const Icon(Icons.more_vert),
-                        surfaceTintColor: Colors.black,
-                        color: Colors.white,
+                        color: Colors.black,
+                        icon: const Icon(
+                          Icons.more_vert,
+                          color: Colors.white,
+                        ),
+                        onSelected: (value) {
+                          // if (value == 0) {
+                          //   savePost(snap: widget.snap);
+                          // }
+                        },
                         itemBuilder: (context) => [
                               const PopupMenuItem(
+                                value: 0,
                                 child: Text(
                                   "Save",
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               )
                             ])
+                //====================Edit deletepost===========================================
               ],
             ),
           ),
@@ -196,10 +237,15 @@ class _PostCardState extends State<PostCard> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(size.width * 0.03),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          ViewPost(postUrl: widget.snap['postUrl']),
+                    ),
+                  ),
                   child: SizedBox(
-                    height: size.height * 0.35,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     width: double.infinity,
                     child: Image(
                       image: NetworkImage(widget.snap['postUrl']),
@@ -228,68 +274,79 @@ class _PostCardState extends State<PostCard> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(
-                left: size.width * 0.04, right: size.width * 0.03),
-            child: Row(
-              children: [
-                LikeAnimation(
-                  isAnimating: widget.snap['likes'].contains(user.uid),
-                  smallLike: true,
-                  child: IconButton(
-                      onPressed: () async {
-                        await FirestoreMethods().likePost(
-                          user.uid,
-                          widget.snap['postId'],
-                          widget.snap['likes'],
-                        );
-                      },
-                      icon: widget.snap['likes'].contains(user.uid)
-                          ? const Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            )
-                          : const Icon(
-                              Icons.favorite_border,
-                              color: Colors.white,
-                            )),
+          Row(
+            children: [
+              LikeAnimation(
+                isAnimating: widget.snap['likes'].contains(user.uid),
+                smallLike: true,
+                child: IconButton(
+                    onPressed: () async {
+                      await FirestoreMethods().likePost(
+                        user.uid,
+                        widget.snap['postId'],
+                        widget.snap['likes'],
+                      );
+
+                      if (widget.snap['uid'] !=
+                              FirebaseAuth.instance.currentUser!.uid &&
+                          widget.snap['likes'].contains(user.uid)) {
+                        await FirestoreMethods().showNotifications(
+                            postUrl: widget.snap['postUrl'],
+                            postId: widget.snap['postId'],
+                            text: "liked",
+                            owner: postSnap['uid'],
+                            name: user.username,
+                            profilePic: user.photoUrl,
+                            uid: FirebaseAuth.instance.currentUser!.uid);
+                      }
+                    },
+                    icon: widget.snap['likes'].contains(user.uid)
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : const Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                          )),
+              ),
+              IconButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => CommentScreen(
+                        snap: widget.snap, documentSnap: postSnap),
+                  ),
                 ),
-                IconButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => CommentScreen(snap: widget.snap),
-                    ),
-                  ),
-                  icon: const Icon(
-                    Icons.comment_outlined,
-                    color: Colors.white,
-                  ),
+                icon: const Icon(
+                  Icons.comment_outlined,
+                  color: Colors.white,
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.send,
-                    color: Colors.white,
-                  ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.send,
+                  color: Colors.white,
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.bookmark,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
+              ),
+              // Expanded(
+              //   child: Align(
+              //     alignment: Alignment.bottomRight,
+              //     child: IconButton(
+              //       onPressed: () {},
+              //       icon: const Icon(
+              //         Icons.bookmark,
+              //         color: Colors.white,
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ],
           ),
           Container(
-            padding: EdgeInsets.symmetric(
-                vertical: 10, horizontal: size.width * 0.04),
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,4 +433,26 @@ class _PostCardState extends State<PostCard> {
       showSnackbar(context, "Post Deleted");
     }
   }
+
+  // Future<void> savePost({required snap}) async {
+  //   String res = "error";
+
+  //   try {
+  //     res = await FirestoreMethods().savePostForFuture(snap);
+  //   } catch (e) {
+  //     showSnackbar(
+  //       context,
+  //       e.toString(),
+  //     );
+  //   }
+
+  //   if (res == 'success') {
+  //     showSnackbar(
+  //       context,
+  //       "Post saved",
+  //     );
+  //   } else {
+  //     showSnackbar(context, res);
+  //   }
+  // }
 }

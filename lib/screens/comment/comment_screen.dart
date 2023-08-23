@@ -13,7 +13,10 @@ import '../widgets/text_field.dart';
 
 class CommentScreen extends StatefulWidget {
   final snap;
-  const CommentScreen({super.key, required this.snap});
+  const CommentScreen(
+      {super.key,
+      required this.snap,
+      required DocumentSnapshot<Object?> documentSnap});
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();
@@ -125,7 +128,7 @@ class _CommentScreenState extends State<CommentScreen> {
                         postUrl: widget.snap['postUrl']);
                   }
                   setState(() {
-                    _commentController.clear();
+                    _commentController.text = '';
                   });
                 },
                 child: Container(
