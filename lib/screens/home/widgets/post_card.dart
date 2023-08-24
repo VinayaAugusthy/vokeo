@@ -37,12 +37,14 @@ class _PostCardState extends State<PostCard> {
   late DocumentSnapshot postSnap;
 
   late DocumentReference profileDetails;
+  bool _isDisposed = false;
 
   //late DocumentSnapshot currentUserSnapshot;
 
   @override
   void dispose() {
     super.dispose();
+    _isDisposed = true;
     _textFieldController.dispose();
   }
 
@@ -82,14 +84,18 @@ class _PostCardState extends State<PostCard> {
           .doc(widget.snap['postId'])
           .get();
 
-      setState(() {
-        commentCount = snap.docs.length;
-      });
+      if (!_isDisposed) {
+        setState(() {
+          commentCount = snap.docs.length;
+        });
+      }
     } catch (er) {
-      showSnackbar(
-        context,
-        er.toString(),
-      );
+      if (!_isDisposed) {
+        showSnackbar(
+          context,
+          er.toString(),
+        );
+      }
     }
     //setState(() {});
   }
@@ -101,16 +107,20 @@ class _PostCardState extends State<PostCard> {
           .doc(widget.snap['uid'])
           .get();
 
-      setState(() {
-        username = (snap.data() as Map<String, dynamic>)['username'];
-      });
+      if (!_isDisposed) {
+        setState(() {
+          username = (snap.data() as Map<String, dynamic>)['username'];
+        });
+      }
 
       //print(username);
     } catch (e) {
-      showSnackbar(
-        context,
-        e.toString(),
-      );
+      if (!_isDisposed) {
+        showSnackbar(
+          context,
+          e.toString(),
+        );
+      }
     }
   }
 

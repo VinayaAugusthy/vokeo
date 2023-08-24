@@ -37,17 +37,19 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           'VOKEO',
           style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(255, 167, 128, 128)),
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 167, 128, 128),
+          ),
         ),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.message_outlined,
-                color: Colors.white,
-              ))
+            onPressed: () {},
+            icon: const Icon(
+              Icons.message_outlined,
+              color: Colors.white,
+            ),
+          )
         ],
       ),
       body: StreamBuilder(
@@ -100,5 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
   listenToChange() async {
     UserProvider userProvider = Provider.of(context, listen: false);
     await userProvider.refreshUser();
+    setState(() {});
   }
 }
