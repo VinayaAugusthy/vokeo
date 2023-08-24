@@ -126,12 +126,14 @@ class _PostCardState extends State<PostCard> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     model.User user = Provider.of<UserProvider>(context).getUser;
 
     return Container(
       color: Colors.black,
-      padding: const EdgeInsets.symmetric(
-        vertical: 10,
+      padding: EdgeInsets.symmetric(
+        vertical: size.width * 0.08,
+        horizontal: size.width * 0.005,
       ),
       child: Column(
         children: [
@@ -290,35 +292,36 @@ class _PostCardState extends State<PostCard> {
                 isAnimating: widget.snap['likes'].contains(user.uid),
                 smallLike: true,
                 child: IconButton(
-                    onPressed: () async {
-                      await FirestoreMethods().likePost(
-                        user.uid,
-                        widget.snap['postId'],
-                        widget.snap['likes'],
-                      );
+                  onPressed: () async {
+                    await FirestoreMethods().likePost(
+                      user.uid,
+                      widget.snap['postId'],
+                      widget.snap['likes'],
+                    );
 
-                      if (widget.snap['uid'] !=
-                              FirebaseAuth.instance.currentUser!.uid &&
-                          widget.snap['likes'].contains(user.uid)) {
-                        await FirestoreMethods().showNotifications(
-                            postUrl: widget.snap['postUrl'],
-                            postId: widget.snap['postId'],
-                            text: "liked",
-                            owner: postSnap['uid'],
-                            name: user.username,
-                            profilePic: user.photoUrl,
-                            uid: FirebaseAuth.instance.currentUser!.uid);
-                      }
-                    },
-                    icon: widget.snap['likes'].contains(user.uid)
-                        ? const Icon(
-                            Icons.favorite,
-                            color: Colors.red,
-                          )
-                        : const Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                          )),
+                    if (widget.snap['uid'] !=
+                            FirebaseAuth.instance.currentUser!.uid &&
+                        widget.snap['likes'].contains(user.uid)) {
+                      await FirestoreMethods().showNotifications(
+                          postUrl: widget.snap['postUrl'],
+                          postId: widget.snap['postId'],
+                          text: "liked",
+                          owner: postSnap['uid'],
+                          name: user.username,
+                          profilePic: user.photoUrl,
+                          uid: FirebaseAuth.instance.currentUser!.uid);
+                    }
+                  },
+                  icon: widget.snap['likes'].contains(user.uid)
+                      ? const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                        )
+                      : const Icon(
+                          Icons.favorite_border,
+                          color: Colors.white,
+                        ),
+                ),
               ),
               IconButton(
                 onPressed: () => Navigator.of(context).push(
@@ -354,8 +357,9 @@ class _PostCardState extends State<PostCard> {
             ],
           ),
           Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10,
+            padding: EdgeInsets.symmetric(
+              vertical: size.width * 0.01,
+              horizontal: size.width * 0.03,
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,

@@ -3,8 +3,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/screens/chat/chat_home.dart';
 import 'package:vokeo/screens/home/widgets/post_card.dart';
@@ -49,10 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
           IconButton(
             onPressed: () {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ChatHomeScreen(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ChatHomeScreen(),
+                ),
+              );
             },
             icon: const Icon(
               Icons.message_outlined,

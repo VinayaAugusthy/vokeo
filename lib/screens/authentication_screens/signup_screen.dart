@@ -44,6 +44,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       body: ListView(children: [
@@ -55,7 +56,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  getHorizontalSpace(),
+                  getHorizontalSpace(size.width * 0.08),
                   const Text(
                     'VOKEO',
                     style: TextStyle(
@@ -79,7 +80,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         )),
                   Positioned(
                     right: 0,
-                    bottom: 0,
+                    bottom: 0.5,
                     child: IconButton(
                       onPressed: () {
                         selectImage();
@@ -93,7 +94,12 @@ class _SignupScreenState extends State<SignupScreen> {
               SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 50, 20, 60),
+                  padding: EdgeInsets.fromLTRB(
+                    size.width * 0.08,
+                    size.width * 0.1,
+                    size.width * 0.08,
+                    size.width * 0.08,
+                  ),
                   child: Form(
                     key: _formKey,
                     child: Column(
