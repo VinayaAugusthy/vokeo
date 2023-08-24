@@ -1,12 +1,9 @@
 // ignore_for_file: use_build_context_synchronously, duplicate_ignore, avoid_print
 
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../resourses/auth_methods.dart';
-import '../../utils/gradiant.dart';
 import '../../utils/spacing.dart';
 import '../../utils/utils.dart';
 import '../bottom_nav/bottom_nav_screen.dart';
@@ -54,11 +51,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     return Scaffold(
       //resizeToAvoidBottomInset: false,
       body: ListView(children: [
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
-            gradient: getGradiant(),
-          ),
           child: Column(
             children: [
               // getVerticalSpace(10),
@@ -161,14 +155,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   updateProfile() async {
+    if (_image == null) {
+      showSnackbar(context, "Please select a profile picture.");
+      return;
+    }
     setState(() {
       isLoading = true;
     });
     String res = await AuthMethods().updateUser(
-        uid: widget.snap['uid'],
-        username: usernameController.text,
-        bio: bioController.text,
-        file: _image!);
+      uid: widget.snap['uid'],
+      username: usernameController.text,
+      bio: bioController.text,
+      file: _image!,
+    );
 
     if (res == 'Success') {
       // ignore: use_build_context_synchronously

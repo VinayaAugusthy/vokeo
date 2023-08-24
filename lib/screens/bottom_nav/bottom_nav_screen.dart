@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vokeo/screens/notifications/notifications.dart';
-
 import '../../controller/bottom_nav_controller.dart';
 import '../add_post/add_post_screen.dart';
 import '../home/home_screen.dart';

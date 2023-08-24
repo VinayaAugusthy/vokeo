@@ -132,7 +132,7 @@ class _PostCardState extends State<PostCard> {
     return Container(
       color: Colors.black,
       padding: EdgeInsets.symmetric(
-        vertical: size.width * 0.08,
+        vertical: size.width * 0.005,
         horizontal: size.width * 0.005,
       ),
       child: Column(
@@ -358,7 +358,7 @@ class _PostCardState extends State<PostCard> {
           ),
           Container(
             padding: EdgeInsets.symmetric(
-              vertical: size.width * 0.01,
+              // vertical: size.width * 0.01,
               horizontal: size.width * 0.03,
             ),
             child: Column(

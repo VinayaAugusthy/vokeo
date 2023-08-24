@@ -196,7 +196,6 @@ class AuthMethods {
     } catch (e) {
       res = e.toString();
     }
-
     return res;
   }
 }
