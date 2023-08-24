@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vokeo/resourses/storage_methods.dart';
 
+import '../models/message.dart';
 import '../models/post.dart';
 
 class FirestoreMethods {
@@ -212,5 +213,47 @@ class FirestoreMethods {
         e.toString(),
       );
     }
+  }
+
+  Future<void> sendMessage(
+      {required receiverId, required message, required senderId}) async {
+    final Timestamp timeStamp = Timestamp.now();
+
+    print(senderId);
+    print(receiverId);
+
+    Message newMessage = Message(
+        senderId: senderId,
+        receiverId: receiverId,
+        timeStamp: timeStamp,
+        message: message);
+
+    List<String> ids = [senderId, receiverId];
+
+    ids.sort();
+
+    String chatRoomId = ids.join("_");
+
+    await _firebaseFirestore
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection('messages')
+        .add(
+          newMessage.toMap(),
+        );
+  }
+
+  Stream<QuerySnapshot> getMessages(String sender, String receiver) {
+    List<String> ids = [sender, receiver];
+
+    ids.sort();
+
+    String chatRoomId = ids.join("_");
+    return _firebaseFirestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('messages')
+        .orderBy('timeStamp', descending: false)
+        .snapshots();
   }
 }

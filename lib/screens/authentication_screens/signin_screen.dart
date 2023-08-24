@@ -33,6 +33,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: const Color.fromARGB(200, 195, 144, 200),
       resizeToAvoidBottomInset: false,
@@ -41,6 +42,8 @@ class _SigninScreenState extends State<SigninScreen> {
               child: CircularProgressIndicator(color: Colors.white),
             )
           : Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 getVerticalSpace(50),
                 Row(
@@ -55,13 +58,18 @@ class _SigninScreenState extends State<SigninScreen> {
                     )
                   ],
                 ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 50, 20, 60),
+                Padding(
+                  padding: EdgeInsets.only(
+                    left: size.width * 0.05,
+                    right: size.width * 0.05,
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                     child: Form(
                       key: _formKey,
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           textFormField(
                             controller: emailController,
@@ -94,7 +102,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: EdgeInsets.all(size.width * 0.06),
                                 child: GestureDetector(
                                   onTap: () => Navigator.of(context).push(
                                     MaterialPageRoute(
@@ -115,8 +123,8 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                           getVerticalSpace(20),
                           SizedBox(
-                            height: 40,
-                            width: 300,
+                            height: size.width * 0.12,
+                            width: size.width * 0.7,
                             child: isLoading != true
                                 ? ElevatedButton.icon(
                                     onPressed: signinUser,
@@ -133,14 +141,14 @@ class _SigninScreenState extends State<SigninScreen> {
                           const Text(
                             'OR',
                             style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                                 color: Colors.white),
                           ),
                           getVerticalSpace(20),
                           SizedBox(
-                            height: 40,
-                            width: 300,
+                            height: size.width * 0.12,
+                            width: size.width * 0.7,
                             child: ElevatedButton.icon(
                               onPressed: () async {
                                 bool result =
@@ -182,9 +190,10 @@ class _SigninScreenState extends State<SigninScreen> {
                                 child: const Text(
                                   "Signup",
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
                                 ),
                               )
                             ],

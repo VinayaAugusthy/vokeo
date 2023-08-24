@@ -2,13 +2,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Notifications {
+class Message {
   final String senderId;
   final String receiverId;
   final Timestamp timeStamp;
   final String message;
 
-  Notifications({
+  Message({
     required this.senderId,
     required this.receiverId,
     required this.timeStamp,
@@ -24,8 +24,8 @@ class Notifications {
     };
   }
 
-  factory Notifications.fromMap(Map<String, dynamic> map) {
-    return Notifications(
+  factory Message.fromMap(Map<String, dynamic> map) {
+    return Message(
       senderId: map['senderId'] as String,
       receiverId: map['receiverId'] as String,
       timeStamp: map['timeStamp'] as Timestamp,

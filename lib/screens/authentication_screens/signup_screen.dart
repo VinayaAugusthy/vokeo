@@ -53,14 +53,16 @@ class _SignupScreenState extends State<SignupScreen> {
             children: [
               getVerticalSpace(100),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  getHorizontalSpace(120),
+                  getHorizontalSpace(),
                   const Text(
                     'VOKEO',
                     style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   )
                 ],
               ),

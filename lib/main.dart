@@ -1,16 +1,29 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/providers/user_provider.dart';
+import 'package:vokeo/resourses/local_notifications.dart';
 import 'package:vokeo/screens/authentication_screens/signin_screen.dart';
 import 'package:vokeo/utils/utils.dart';
-
 import 'screens/bottom_nav/bottom_nav_screen.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  LocalNotificationService.initialize();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  ErrorWidget.builder = (FlutterErrorDetails details) {
+    return const Center(
+      child: CircularProgressIndicator(
+        color: Colors.white,
+      ),
+    );
+  };
   runApp(const MyApp());
 }
 
@@ -24,7 +37,7 @@ class MyApp extends StatelessWidget {
           create: (_) => UserProvider(),
         ),
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Vokeo',
         theme: ThemeData(
@@ -58,4 +71,9 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print(message.data.toString());
+  print(message.notification.toString());
 }
