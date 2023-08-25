@@ -158,7 +158,8 @@ class _SigninScreenState extends State<SigninScreen> {
                                   // ignore: use_build_context_synchronously
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => BottomNavScreen(),
+                                      builder: (context) =>
+                                          const BottomNavScreen(),
                                     ),
                                   );
                                 } else {
@@ -220,7 +221,7 @@ class _SigninScreenState extends State<SigninScreen> {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => BottomNavScreen(),
+          builder: (context) => const BottomNavScreen(),
         ),
       );
     } else {

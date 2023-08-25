@@ -162,7 +162,7 @@ class AuthMethods {
         result = true;
       } else {
         GoogleSignIn().signIn();
-        Get.to(BottomNavScreen());
+        Get.to(const BottomNavScreen());
       }
     } catch (err) {
       print(err);

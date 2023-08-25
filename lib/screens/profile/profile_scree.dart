@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               leading: IconButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => BottomNavScreen(),
+                    builder: (context) => const BottomNavScreen(),
                   ),
                 ),
                 icon: const Icon(

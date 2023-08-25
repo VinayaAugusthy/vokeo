@@ -155,13 +155,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   updateProfile() async {
+    setState(() {
+      isLoading = true;
+    });
     if (_image == null) {
       showSnackbar(context, "Please select a profile picture.");
       return;
     }
-    setState(() {
-      isLoading = true;
-    });
     String res = await AuthMethods().updateUser(
       uid: widget.snap['uid'],
       username: usernameController.text,
@@ -175,7 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
-            builder: (context) => BottomNavScreen(),
+            builder: (context) => const BottomNavScreen(),
           ),
           (route) => false);
     }

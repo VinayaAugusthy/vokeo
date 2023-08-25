@@ -424,22 +424,6 @@ class _PostCardState extends State<PostCard> {
     );
   }
 
-  _displayTextInputDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('TextField in Dialog'),
-            content: TextField(
-              onChanged: (value) {},
-              controller: _textFieldController,
-              decoration:
-                  const InputDecoration(hintText: "Text Field in Dialog"),
-            ),
-          );
-        });
-  }
-
   Future<void> deletePost(String postId) async {
     String res = await FirestoreMethods().deletePost(postId);
     if (res == "Deleted") {

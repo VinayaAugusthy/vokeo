@@ -127,7 +127,7 @@ class _EditPostScreenState extends State<EditPostScreen> {
         showSnackbar(context, "Caption Updated!!");
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => BottomNavScreen()),
+            MaterialPageRoute(builder: (context) => const BottomNavScreen()),
             (route) => false);
       } else {
         setState(() {
