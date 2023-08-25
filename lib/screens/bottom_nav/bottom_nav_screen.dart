@@ -1,22 +1,40 @@
 // ignore_for_file: avoid_print
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:vokeo/screens/notifications/notifications.dart';
 import '../../controller/bottom_nav_controller.dart';
+import '../../resourses/local_notifications.dart';
 import '../add_post/add_post_screen.dart';
 import '../home/home_screen.dart';
 import '../profile/profile_scree.dart';
 import '../search/search_screen.dart';
 
 // ignore: must_be_immutable
-class BottomNavScreen extends StatelessWidget {
-  BottomNavScreen({super.key});
+class BottomNavScreen extends StatefulWidget {
+  const BottomNavScreen({super.key});
 
+  @override
+  State<BottomNavScreen> createState() => _BottomNavScreenState();
+}
+
+class _BottomNavScreenState extends State<BottomNavScreen> {
   final getIndex = Get.put(NavBarController());
 
   int currentindex = 4;
+  @override
+  void initState() {
+    super.initState();
+    FirebaseMessaging.instance.getInitialMessage();
+    FirebaseMessaging.onMessage.listen((message) {
+      print(message.notification!.title);
+      print(message.notification!.body);
+      LocalNotificationService.display(message);
+    });
+    LocalNotificationService.storeToken();
+  }
 
   @override
   Widget build(BuildContext context) {

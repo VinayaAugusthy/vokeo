@@ -111,12 +111,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 ? SizedBox(
                     height: MediaQuery.of(context).size.height * .35,
                     child: EmojiPicker(
-                      textEditingController:
-                          _messageController, // pass here the same [TextEditingController] that is connected to your input field, usually a [TextFormField]
+                      textEditingController: _messageController,
                       config: const Config(
                         columns: 7,
-                        emojiSizeMax: 32 *
-                            (1.0), // Issue: https://github.com/flutter/flutter/issues/28894
+                        emojiSizeMax: 32 * (1.0),
                       ),
                     ),
                   )
@@ -154,9 +152,6 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-
-    // DateTime dateTime = data['timeStamp'].toDate();
-    // print(dateTime);
 
     var alignment =
         (data['receiverId'] == FirebaseAuth.instance.currentUser!.uid)

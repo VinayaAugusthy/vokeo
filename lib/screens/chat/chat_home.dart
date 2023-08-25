@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +32,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
       appBar: AppBar(
           backgroundColor: Colors.black,
           leading: IconButton(
-            onPressed: () => Get.off(BottomNavScreen()),
+            onPressed: () => Get.off(const BottomNavScreen()),
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.white,

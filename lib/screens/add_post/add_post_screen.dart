@@ -31,11 +31,22 @@ class _AddPostScreenState extends State<AddPostScreen> {
     final User user = Provider.of<UserProvider>(context).getUser;
     return _file == null
         ? Center(
-            child: IconButton(
+            child: TextButton(
               onPressed: () => _selectImage(context),
-              icon: const Icon(
-                Icons.upload,
-                color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Icon(Icons.upload),
+                  getHorizontalSpace(10),
+                  const Text(
+                    'ADD POST',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
           )
@@ -49,10 +60,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 ),
                 onPressed: clearImage,
               ),
-              // title: const Text(
-              //   'Post to',
-              //   style: TextStyle(color: Colors.white),
-              // ),
               actions: [
                 TextButton(
                   onPressed: () => postImage(
