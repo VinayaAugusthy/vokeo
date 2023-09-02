@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/providers/home_provider.dart';
+import 'package:vokeo/providers/posts/post_provider.dart';
 import 'package:vokeo/providers/user_provider.dart';
 import 'package:vokeo/resourses/local_notifications.dart';
 import 'package:vokeo/screens/authentication_screens/signin_screen.dart';
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => HomeScreenProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PostCardProvider(),
         )
       ],
       child: GetMaterialApp(
