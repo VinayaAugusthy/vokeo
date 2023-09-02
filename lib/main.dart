@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:vokeo/providers/home_provider.dart';
 import 'package:vokeo/providers/user_provider.dart';
 import 'package:vokeo/resourses/local_notifications.dart';
 import 'package:vokeo/screens/authentication_screens/signin_screen.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => UserProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => HomeScreenProvider(),
+        )
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,

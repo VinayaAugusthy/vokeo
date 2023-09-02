@@ -127,7 +127,7 @@ class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User? user = Provider.of<UserProvider>(context).getUser;
 
     return Container(
       color: Colors.black,
@@ -238,7 +238,7 @@ class _PostCardState extends State<PostCard> {
           GestureDetector(
             onDoubleTap: () async {
               await FirestoreMethods().likePost(
-                user.uid,
+                user!.uid,
                 widget.snap['postId'],
                 widget.snap['likes'],
               );
@@ -289,12 +289,12 @@ class _PostCardState extends State<PostCard> {
           Row(
             children: [
               LikeAnimation(
-                isAnimating: widget.snap['likes'].contains(user.uid),
+                isAnimating: widget.snap['likes'].contains(user!.uid),
                 smallLike: true,
                 child: IconButton(
                   onPressed: () async {
                     await FirestoreMethods().likePost(
-                      user.uid,
+                      user!.uid,
                       widget.snap['postId'],
                       widget.snap['likes'],
                     );
