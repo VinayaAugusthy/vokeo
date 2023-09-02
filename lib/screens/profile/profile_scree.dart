@@ -82,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
             body: Padding(
-              padding: EdgeInsets.all(size.width * 0.03),
+              padding: EdgeInsets.all(size.width * 0.005),
               child: ListView(
                 children: [
                   Column(
@@ -134,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 Padding(
                                   padding:
-                                      EdgeInsets.only(right: size.width * 0.01),
+                                      EdgeInsets.only(right: size.width * 0.00),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,

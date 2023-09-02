@@ -100,7 +100,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       ),
                     );
                   }
-
                   return ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
