@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:vokeo/providers/comments/comment_provider.dart';
 import 'package:vokeo/providers/edit_posts/edit_post_provider.dart';
 import 'package:vokeo/providers/home_provider.dart';
 import 'package:vokeo/providers/posts/post_provider.dart';
@@ -47,6 +48,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => EditPostProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CommentProvider(),
         )
       ],
       child: GetMaterialApp(
