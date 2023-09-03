@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:vokeo/screens/home/widgets/save_posts.dart';
 import '../../../providers/posts/post_provider.dart';
 import '../../../providers/user_provider.dart';
 import '../../../resourses/firestore_methods.dart';
@@ -23,11 +24,8 @@ class PostCard extends StatelessWidget {
     final postCardProvider = Provider.of<PostCardProvider>(context);
     final user = Provider.of<UserProvider>(context).getUser;
 
-    // Access the properties from the provider
     final isLikeAnimating = postCardProvider.isLikeAnimating;
     final commentCount = postCardProvider.commentCount;
-
-    // Rest of your widget's code here
 
     return Container(
       color: Colors.black,
@@ -76,60 +74,8 @@ class PostCard extends StatelessWidget {
 
                 //====================Edit deletepost===========================================
                 snap['uid'] == FirebaseAuth.instance.currentUser!.uid
-                    ? PopupMenuButton(
-                        color: Colors.black,
-                        icon: const Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                        onSelected: (value) {
-                          if (value == 0) {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    EditPostScreen(snap: snap),
-                              ),
-                            );
-                          }
-                          if (value == 1) {
-                            deletePost(snap['postId'].toString(), context);
-                          }
-                        },
-                        itemBuilder: (BuildContext context) {
-                          return [
-                            const PopupMenuItem(
-                              value: 0, //---add this line
-                              child: Text('Edit',
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                            const PopupMenuItem(
-                              value: 1,
-                              child: Text('Delete',
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                          ];
-                        })
-                    : PopupMenuButton(
-                        color: Colors.black,
-                        icon: const Icon(
-                          Icons.more_vert,
-                          color: Colors.white,
-                        ),
-                        onSelected: (value) {
-                          // if (value == 0) {
-                          //   savePost(snap: widget.snap);
-                          // }
-                        },
-                        itemBuilder: (context) => [
-                              const PopupMenuItem(
-                                value: 0,
-                                child: Text(
-                                  "Save",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              )
-                            ])
-                //====================Edit deletepost===========================================
+                    ? editOrDeletePosts(context)
+                    : const SavePosts(),
               ],
             ),
           ),
@@ -227,13 +173,7 @@ class PostCard extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.send,
-                  color: Colors.white,
-                ),
-              ),
+
               // Expanded(
               //   child: Align(
               //     alignment: Alignment.bottomRight,
@@ -316,7 +256,40 @@ class PostCard extends StatelessWidget {
     );
   }
 
-  Future<void> deletePost(String postId, BuildContext context) async {
+  PopupMenuButton<int> editOrDeletePosts(BuildContext context) {
+    return PopupMenuButton(
+        color: Colors.black,
+        icon: const Icon(
+          Icons.more_vert,
+          color: Colors.white,
+        ),
+        onSelected: (value) {
+          if (value == 0) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => EditPostScreen(snap: snap),
+              ),
+            );
+          }
+          if (value == 1) {
+            deletePost(snap['postId'].toString(), context);
+          }
+        },
+        itemBuilder: (BuildContext context) {
+          return [
+            const PopupMenuItem(
+              value: 0, //---add this line
+              child: Text('Edit', style: TextStyle(color: Colors.white)),
+            ),
+            const PopupMenuItem(
+              value: 1,
+              child: Text('Delete', style: TextStyle(color: Colors.white)),
+            ),
+          ];
+        });
+  }
+
+  deletePost(String postId, BuildContext context) async {
     String res = await FirestoreMethods().deletePost(postId);
     if (res == "Deleted") {
       // ignore: use_build_context_synchronously
