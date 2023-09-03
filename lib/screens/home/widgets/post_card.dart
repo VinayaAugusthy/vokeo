@@ -24,7 +24,6 @@ class PostCard extends StatelessWidget {
     final user = Provider.of<UserProvider>(context).getUser;
 
     // Access the properties from the provider
-    final username = postCardProvider.username;
     final isLikeAnimating = postCardProvider.isLikeAnimating;
     final commentCount = postCardProvider.commentCount;
 
