@@ -14,9 +14,7 @@ class SavePosts extends StatelessWidget {
         color: Colors.white,
       ),
       onSelected: (value) {
-        // if (value == 0) {
-        //   savePost(snap: widget.snap);
-        // }
+        if (value == 0) {}
       },
       itemBuilder: (context) => [
         const PopupMenuItem(
