@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vokeo/screens/home/widgets/post_card.dart';
+import 'package:vokeo/screens/home/widgets/shimmer.dart';
 
 import '../../../providers/home_provider.dart';
 import '../../chat/chat_home.dart';
@@ -48,9 +49,7 @@ class AuthenticatedUserHome extends StatelessWidget {
             homeScreenProvider.getUsername();
             homeScreenProvider.listenToChange(context);
             return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
+              child: CircularProgressIndicator(),
             );
           }
           return StreamBuilder(
@@ -59,11 +58,7 @@ class AuthenticatedUserHome extends StatelessWidget {
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting ||
                   homeScreenProvider.username.isEmpty) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ),
-                );
+                return const LoadingShimmer();
               }
 
               if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {

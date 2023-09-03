@@ -108,20 +108,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       if (userData['uid'] !=
                           FirebaseAuth.instance.currentUser!.uid) {
                         return InkWell(
-                          // onTap: () async {
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (ctx) => ChatScreen(
-                          //       receiver: userData['uid'],
-                          //       sender: FirebaseAuth.instance.currentUser!.uid,
-                          //     ),
-                          //   ));
-                          //   // Get.to(
-                          //   //   ChatScreen(
-                          //   //     receiver: userData['uid'],
-                          //   //     sender: FirebaseAuth.instance.currentUser!.uid,
-                          //   //   ),
-                          //   // );
-                          // },
                           onTap: () async {
                             try {
                               await Navigator.of(context)
@@ -136,7 +122,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                               print("Error navigating to ChatScreen: $error");
                             }
                           },
-
                           child: ListTile(
                             leading: CircleAvatar(
                               radius: 20,
