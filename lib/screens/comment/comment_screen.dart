@@ -13,10 +13,12 @@ import '../widgets/text_field.dart';
 
 class CommentScreen extends StatefulWidget {
   final snap;
-  const CommentScreen(
-      {super.key,
-      required this.snap,
-      required DocumentSnapshot<Object?> documentSnap});
+  final DocumentSnapshot<Map<String, dynamic>>? documentSnap;
+  const CommentScreen({
+    super.key,
+    required this.snap,
+    this.documentSnap,
+  });
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();
