@@ -42,7 +42,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
       const HomeScreen(),
       const SearchScreen(),
       const AddPostScreen(),
-      const Notifications(),
+      const NotificationScreen(),
       ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid),
     ];
     return Scaffold(

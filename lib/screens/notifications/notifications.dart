@@ -3,14 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/screens/notifications/widgets/card_notification.dart';
 
-class Notifications extends StatefulWidget {
-  const Notifications({super.key});
+class NotificationScreen extends StatefulWidget {
+  const NotificationScreen({super.key});
 
   @override
-  State<Notifications> createState() => _NotificationsState();
+  State<NotificationScreen> createState() => _NotificationScreenState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _NotificationScreenState extends State<NotificationScreen> {
   @override
   void initState() {
     super.initState();
@@ -26,7 +26,6 @@ class _NotificationsState extends State<Notifications> {
           "Notifications",
           style: TextStyle(color: Colors.white),
         ),
-        actions: const [Icon(Icons.notifications_active)],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
