@@ -35,6 +35,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             .orderBy('datePublished', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
+          print(snapshot.data);
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(

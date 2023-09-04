@@ -66,7 +66,7 @@ class EditPostScreen extends StatelessWidget {
                 backgroundImage: NetworkImage(user!.photoUrl),
               ),
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
+                width: MediaQuery.of(context).size.width * 0.8,
                 child: TextField(
                   controller: descriptionController,
                   style: const TextStyle(color: Colors.white),
@@ -82,26 +82,25 @@ class EditPostScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 45,
-                width: 45,
-                child: AspectRatio(
-                  aspectRatio: 487 / 451,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(snap['postUrl']),
-                        fit: BoxFit.fill,
-                        alignment: FractionalOffset.topCenter,
-                      ),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
           getVerticalSpace(20),
-          const Divider(),
+          SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.4,
+            width: MediaQuery.sizeOf(context).width * 0.8,
+            child: AspectRatio(
+              aspectRatio: 487 / 451,
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: MemoryImage(snap['postUrl']),
+                    fit: BoxFit.fill,
+                    alignment: FractionalOffset.topCenter,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

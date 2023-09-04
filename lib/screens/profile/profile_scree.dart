@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vokeo/screens/profile/post_view.dart';
 import 'package:vokeo/screens/settings/terms.dart';
 
@@ -446,12 +447,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const Center(
           child: CircularProgressIndicator(backgroundColor: Colors.white),
         );
-        Timer(const Duration(seconds: 5), () {
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => const SigninScreen(),
-            ),
-          );
+        Timer(const Duration(seconds: 5), () async {
+          try {
+            // Sign out the user
+            AuthMethods().signout();
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const SigninScreen(),
+              ),
+            );
+          } catch (error) {
+            print("Error during sign-out: $error");
+          }
         });
       },
     );
