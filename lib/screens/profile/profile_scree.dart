@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/screens/profile/post_view.dart';
+import 'package:vokeo/screens/settings/terms.dart';
 
 import '../../resourses/auth_methods.dart';
 import '../../resourses/firestore_methods.dart';
@@ -78,6 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               actions: [
+                settingsButton(),
                 logoutButton(),
               ],
             ),
@@ -111,9 +113,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               MaterialPageRoute(
                                                 builder: (context) =>
                                                     FollowScreen(
-                                                        followersList:
-                                                            followersTopass,
-                                                        uid: widget.uid),
+                                                  followersList:
+                                                      followersTopass,
+                                                  uid: widget.uid,
+                                                ),
                                               ),
                                             ),
                                         child: buildStatColum(
@@ -351,6 +354,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       icon: const Icon(
         Icons.logout,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  settingsButton() {
+    return IconButton(
+      onPressed: () async {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TermsAndConditions(),
+          ),
+        );
+      },
+      icon: const Icon(
+        Icons.settings,
         color: Colors.white,
       ),
     );

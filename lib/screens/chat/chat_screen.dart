@@ -170,7 +170,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: [
             data['senderId'] == FirebaseAuth.instance.currentUser!.uid
                 ? const Text(
-                    'You',
+                    '',
                     style: TextStyle(color: Colors.white),
                   )
                 : Text(

@@ -155,6 +155,8 @@
 //                     itemBuilder: (context, index) {
 //                       var userData = snapshot.data!.docs[index].data();
 
+// ignore_for_file: avoid_print
+
 //                       if (userData['uid'] !=
 //                           FirebaseAuth.instance.currentUser!.uid) {
 //                         return InkWell(
