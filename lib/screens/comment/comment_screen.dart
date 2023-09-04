@@ -5,7 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/user.dart' as model;
+import 'package:vokeo/models/user.dart' as model;
+
 import '../../providers/user_provider.dart';
 import '../../resourses/firestore_methods.dart';
 import '../widgets/comment_card.dart';
@@ -13,12 +14,9 @@ import '../widgets/text_field.dart';
 
 class CommentScreen extends StatefulWidget {
   final snap;
-  final DocumentSnapshot<Map<String, dynamic>>? documentSnap;
-  const CommentScreen({
-    super.key,
-    required this.snap,
-    this.documentSnap,
-  });
+  final documentSnap;
+  const CommentScreen(
+      {super.key, required this.snap, required this.documentSnap});
 
   @override
   State<CommentScreen> createState() => _CommentScreenState();
@@ -35,6 +33,7 @@ class _CommentScreenState extends State<CommentScreen> {
   @override
   Widget build(BuildContext context) {
     model.User? user = Provider.of<UserProvider>(context).getUser;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -118,6 +117,7 @@ class _CommentScreenState extends State<CommentScreen> {
                     user.username,
                     user.photoUrl,
                   );
+
                   if (widget.snap['uid'] !=
                       FirebaseAuth.instance.currentUser!.uid) {
                     await FirestoreMethods().showNotifications(
@@ -129,8 +129,9 @@ class _CommentScreenState extends State<CommentScreen> {
                         owner: widget.snap['uid'],
                         postUrl: widget.snap['postUrl']);
                   }
+
                   setState(() {
-                    _commentController.text = '';
+                    _commentController.text = "";
                   });
                 },
                 child: Container(

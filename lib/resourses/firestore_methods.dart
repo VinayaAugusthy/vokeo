@@ -3,6 +3,7 @@
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vokeo/resourses/storage_methods.dart';
 
@@ -158,6 +159,30 @@ class FirestoreMethods {
       res = e.toString();
     }
 
+    return res;
+  }
+
+  Future<String> savePostForFuture(snap) async {
+    String res = "error";
+    try {
+      await _firebaseFirestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .collection('savedPost')
+          .doc(snap['postId'])
+          .set({
+        'postId': snap['postId'],
+        'postUrl': snap['postUrl'],
+        'profileImage': snap['profileImage'],
+        'username': snap['username'],
+        'description': snap['description'],
+        'postOwner': snap['uid'],
+        'dateSaved': DateTime.now(),
+      });
+      res = "success";
+    } catch (e) {
+      res = e.toString();
+    }
     return res;
   }
 
