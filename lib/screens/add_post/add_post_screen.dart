@@ -82,14 +82,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 _isLoading ? const LinearProgressIndicator() : Container(),
                 getVerticalSpace(100),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CircleAvatar(
                       backgroundImage: NetworkImage(user!.photoUrl),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       child: TextField(
                         controller: _descriptionController,
                         style: const TextStyle(color: Colors.white),
@@ -105,26 +105,25 @@ class _AddPostScreenState extends State<AddPostScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 45,
-                      width: 45,
-                      child: AspectRatio(
-                        aspectRatio: 487 / 451,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: MemoryImage(_file!),
-                              fit: BoxFit.fill,
-                              alignment: FractionalOffset.topCenter,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
                 ),
                 getVerticalSpace(20),
-                const Divider()
+                SizedBox(
+                  height: MediaQuery.sizeOf(context).height * 0.4,
+                  width: MediaQuery.sizeOf(context).width * 0.8,
+                  child: AspectRatio(
+                    aspectRatio: 487 / 451,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: MemoryImage(_file!),
+                          fit: BoxFit.fill,
+                          alignment: FractionalOffset.topCenter,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           );
