@@ -1,14 +1,12 @@
 // ignore_for_file: avoid_print, prefer_typing_uninitialized_variables
 
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:vokeo/screens/profile/post_view.dart';
-import 'package:vokeo/screens/settings/terms.dart';
-
+import 'package:vokeo/screens/profile/settings/widgets/settings.dart';
+import 'package:vokeo/screens/profile/settings/terms.dart';
 import '../../resourses/auth_methods.dart';
 import '../../resourses/firestore_methods.dart';
 import '../../utils/utils.dart';
@@ -49,7 +47,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     getData();
     getFollowers();
     getFollowings();
-    print(userData);
   }
 
   @override
@@ -366,7 +363,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const TermsAndConditions(),
+            builder: (context) => const SettingScreens(),
           ),
         );
       },
@@ -409,8 +406,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     try {
       userSnapshot = await FirebaseFirestore.instance
           .collection('users')
-          .doc(widget
-              .uid) // Replace 'uid' with the actual user ID you want to fetch
+          .doc(widget.uid)
           .get();
 
       // Check if the document exists
@@ -439,11 +435,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         "Yes",
       ),
       onPressed: () async {
-        // setState(() {
-        //   isQuit = true;
-        // });
-
-        await AuthMethods().signout();
         const Center(
           child: CircularProgressIndicator(backgroundColor: Colors.white),
         );
