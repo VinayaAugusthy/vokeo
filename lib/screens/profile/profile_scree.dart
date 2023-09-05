@@ -6,7 +6,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vokeo/screens/profile/post_view.dart';
 import 'package:vokeo/screens/profile/settings/widgets/settings.dart';
-import 'package:vokeo/screens/profile/settings/terms.dart';
 import '../../resourses/auth_methods.dart';
 import '../../resourses/firestore_methods.dart';
 import '../../utils/utils.dart';
