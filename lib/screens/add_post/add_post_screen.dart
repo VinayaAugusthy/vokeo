@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -192,13 +194,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
           _isLoading = false;
         });
         clearImage();
-        // ignore: use_build_context_synchronously
         showSnackbar(context, "Posted !!");
       } else {
         setState(() {
           _isLoading = false;
         });
-        // ignore: use_build_context_synchronously
+
         showSnackbar(context, res);
       }
     } catch (err) {

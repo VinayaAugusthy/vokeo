@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -123,9 +125,7 @@ class _EditPostScreenState extends State<EditPostScreen> {
           _isLoading = false;
         });
 
-        // ignore: use_build_context_synchronously
         showSnackbar(context, "Caption Updated!!");
-        // ignore: use_build_context_synchronously
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => const BottomNavScreen()),
             (route) => false);
@@ -134,7 +134,6 @@ class _EditPostScreenState extends State<EditPostScreen> {
           _isLoading = false;
         });
 
-        // ignore: use_build_context_synchronously
         showSnackbar(context, res);
       }
     } catch (err) {

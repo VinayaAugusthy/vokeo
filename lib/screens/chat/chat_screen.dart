@@ -256,6 +256,7 @@ class _ChatScreenState extends State<ChatScreen> {
         receiverData = receiverSnapshot.data()!;
       });
     } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackbar(
         context,
         e.toString(),
@@ -284,6 +285,7 @@ class _ChatScreenState extends State<ChatScreen> {
         senderData = senderSnapshot.data()!;
       });
     } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackbar(
         context,
         e.toString(),

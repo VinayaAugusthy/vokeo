@@ -334,6 +334,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         userDetails = userSnap;
       });
     } catch (e) {
+      // ignore: use_build_context_synchronously
       showSnackbar(
         context,
         e.toString(),
