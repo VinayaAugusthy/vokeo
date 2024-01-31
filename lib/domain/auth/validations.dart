@@ -12,3 +12,11 @@ Either<ValueFailures, String> validateEmail(String email) {
     return left(ValueFailures.invalidEmailFailure(failedValue: email));
   }
 }
+
+Either<ValueFailures, String> validatePassword(String password) {
+  if (password.length >= 6) {
+    return right(password);
+  } else {
+    return left(ValueFailures.shortPassword(failedValue: password));
+  }
+}
